@@ -2,3 +2,6 @@
 	name = Justin McGuire
 	email = jm@landedstar.com
 
+[alias]
+  lg2 = log --graph --pretty=format:'%h -%d %s (%cr) <%an>' --abbrev-commit --date=relative
+

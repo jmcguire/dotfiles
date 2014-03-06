@@ -5,3 +5,6 @@
 [alias]
   lg2 = log --graph --pretty=format:'%h -%d %s (%cr) <%an>' --abbrev-commit --date=relative
 
+[color]
+	use = true
+

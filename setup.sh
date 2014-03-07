@@ -14,10 +14,5 @@ if [ -f ~/.bash_profile ]; then
   . ~/.bash_profile
 fi
 
-## source my local/custom definitions
-if [ -f ~/.bash_local ]; then
-  . ~/.bash_local
-fi
-
 EOF
 

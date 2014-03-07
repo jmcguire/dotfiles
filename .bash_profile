@@ -33,3 +33,9 @@ set -o ignoreeof
 shopt -s no_empty_cmd_completion
 shopt -s lithist
 
+## source my local/custom definitions
+## (this should always be last)
+if [ -f ~/.bash_local ]; then
+  . ~/.bash_local
+fi
+

@@ -18,6 +18,7 @@ alias findx="find . -path '*.svn*' -prune -o -type f -print0 | xargs -0 grep -i 
 alias grepf="find . -path '*.svn*' -prune -o -type f -print | grep -i "
 alias grepp="grep -P " ## perl
 alias rest="cd;clear"
+alias g="git"
 
 ## redoing basic commands
 
@@ -48,4 +49,7 @@ alias remove_tabs="perl -i -pe's/\t/    /g'"
 alias find_long_subs='perl -nE'\''BEGIN{$a=1 if @ARGV>1}if(/^sub (\w+)\b/){$subs{($a?"${ARGV}::":"").$sub}=$c if $c>=100;$sub=$1;$c=0}else{$c++}END{say "$subs{$_}\t$_"foreach sort keys %subs}'\'''
 ## print line number and color code
 alias list_colors_in_css="grep -n color \$1 | perl -F'\s|:' -anle'/(#[\da-fA-F]{3,6})/; print qq{\$F[0] \$1}' "
+
+alias git_branch_changes='for k in `git branch | perl -pe s/^..//`; do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k -- | head -n 1`\\t$k; done | sort -r'
+
 

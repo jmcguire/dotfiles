@@ -15,6 +15,8 @@ export PERL_MB_OPT="--install_base /home/jmcguire/lib/perl5"
 export PERL_MM_OPT="INSTALL_BASE=/home/jmcguire/lib/perl5"
 export PERL5LIB=/usr/local/M2/lib/perl5:$HOME/leaf/lib/:$HOME/lib/perl5/:$HOME/lib/perl5/lib/perl5/i686-linux:$HOME/lib/perl5/lib/perl5
 
+export PYTHONPATH=$HOME/lib/python/ea-deployment/
+
 ##
 ## aliases
 ##
@@ -29,6 +31,8 @@ alias find_css_in_templates="find . -path '*.svn*' -prune -o -type f -print0 | x
 
 ## kill rogue catalyst servers (after bash crashes)
 alias kill_server='myps | grep _server.pl | grep -v grep | awk '\''{print $2}'\'' | xargs kill -9 '
+
+alias bfg="java -jar ~/bin/bfg-1.11.7.jar"
 
 ##
 ## fns

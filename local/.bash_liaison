@@ -39,7 +39,7 @@ alias bfg="java -jar ~/bin/bfg-1.11.7.jar"
 ##
 
 ## translate phases.conf into just phases and steps
-function translate_phases() {
+function get_phases_from_conf() {
   cat phases.conf \
   | perl -ne'print if /<\b(step|phase|title|abbr)\b/' \
   | perl -pe's/^\s+//' \

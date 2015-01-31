@@ -52,4 +52,9 @@ alias list_colors_in_css="grep -n color \$1 | perl -F'\s|:' -anle'/(#[\da-fA-F]{
 
 alias git_branch_changes='for k in `git branch | perl -pe s/^..//`; do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k -- | head -n 1`\\t$k; done | sort -r'
 
+## misc fun
+
+alias sumup="awk '{total = total + \$1} END {print total}'"
+
+
 

@@ -26,7 +26,7 @@ alias cp="cp -i"
 alias mc="echo nope"
 alias more="less"
 ## I think this is also defined in some system default
-alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
+#alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
 
 
 ## set a proxy for curls

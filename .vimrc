@@ -8,10 +8,12 @@ set smartcase
 set novisualbell
 set noautoindent
 set nosmartindent
+set paste " for better pasting, and no auto-commenting
 
 " these are useful, but annoyingly implemented/colored
 set nohlsearch
 set noshowmatch
+let loaded_matchparen = 1 
 
 set bg=dark
 syntax on

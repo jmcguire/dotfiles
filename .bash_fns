@@ -27,3 +27,8 @@ get_css_breakpoints () {
     | sort -u
 }
 
+## add a blank space to the Mac OSX Dock
+add_spacer_to_dock () {
+  defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+  killall Dock
+}

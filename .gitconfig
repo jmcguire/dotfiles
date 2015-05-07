@@ -8,3 +8,6 @@
 [color]
   use = true
 
+[core]
+	excludesfile = ~/.gitignore
+

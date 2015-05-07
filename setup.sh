@@ -8,6 +8,7 @@ ln -s ~/.dotfiles/.bash_aliases ~/.bash_aliases
 ln -s ~/.dotfiles/.bash_fns ~/.bash_fns
 ln -s ~/.dotfiles/.vimrc ~/.vimrc
 ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
+ln -s ~/.dotfiles/.my.gitignore ~/.gitignore
 
 ## setup the .bashrc file
 cat >> ~/.bashrc <<EOF

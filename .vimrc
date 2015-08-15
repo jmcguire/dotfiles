@@ -24,8 +24,9 @@ set wildmenu
 au BufNewFile,BufRead *.t setfiletype perl
 
 " for jumping around via paragaphs, treat a line of whitespace like a blank line
-:nmap { ?^\s*$<CR>
-:nmap } /^\s*$<CR>
+" (update needed: don't wrap past the end of file)
+":nmap { ?^\s*$<CR>
+":nmap } /^\s*$<CR>
 
 " taken from Ovid
 noremap ,c :!time perlc --critic %<cr>

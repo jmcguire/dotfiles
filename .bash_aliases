@@ -38,6 +38,7 @@ alias more="less"
 alias dusk="du -sk * 2>/dev/null | sort -rn"
 alias myps="ps -eo user,pid,etime,fname,args | grep ^$USER | grep -v ' ps ' | grep -v ' grep $USER'"
 alias dirsize="du -h * | perl -ne'print if m,\t[^/]+$,'"
+alias all_permissions="ls -lR . | awk '{print \$1}' | sort -u | grep -v total | grep -v '^\\./'"
 
 ## software debugging help
 

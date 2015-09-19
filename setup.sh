@@ -1,7 +1,11 @@
 ## execute this to setup your environment
 
 ## save our current settings
-cat ~/.bash_profile >>~/.bash_local
+if [ -f ~/.bash_profile ]; then
+  cat ~/.bash_profile >>~/.bash_local
+else
+  touch ~/.bash_local
+fi
 
 ln -s ~/.dotfiles/.bash_profile ~/.bash_profile
 ln -s ~/.dotfiles/.bash_aliases ~/.bash_aliases

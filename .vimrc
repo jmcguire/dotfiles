@@ -21,7 +21,10 @@ colorscheme torte
 
 set wildmenu
 
-au BufNewFile,BufRead *.t setfiletype perl
+set encoding=utf-8  " The encoding displayed.
+set fileencoding=utf-8  " The encoding written to file.
+
+au BufNewFile,BufRead *.t setfiletype perl " perl test files
 
 " for jumping around via paragaphs, treat a line of whitespace like a blank line
 " (update needed: don't wrap past the end of file)

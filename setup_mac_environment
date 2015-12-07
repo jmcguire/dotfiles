@@ -24,7 +24,7 @@ setup dotfiles:
 
   git clone git@github.com:jmcguire/dotfiles.git
   cd dotfiles
-  ./setup
+  ./setup.sh
 
 get basic utilities:
 

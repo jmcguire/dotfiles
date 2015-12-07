@@ -41,3 +41,11 @@ if [ ! -d ~/bin ]; then
   mkdir ~/bin/
 fi
 
+## linking my common scripts
+for filename in get-perl-function intersection perl-sub-info pm_info.pl; do
+  if [ ! -e ~/bin/$filename ]; then
+    echo "linking $filename"
+    ln -s ~/dotfiles/bin/$filename ~/bin/$filename
+  fi
+done
+

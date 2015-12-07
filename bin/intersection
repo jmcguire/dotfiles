@@ -1,0 +1,15 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my %all_lines;
+foreach my $file (@ARGV) {
+    my %file_lines;
+    open my $FH, '<', $file or die "Cannot open file";
+    $file_lines{$_}++ || $all_lines{$_}++ while (<$FH>);
+    close $FH;
+}
+
+print foreach (grep {$all_lines{$_} == @ARGV} keys %all_lines)
+

@@ -1,0 +1,36 @@
+#!/usr/local/MM/bin/perl -nl
+
+BEGIN {
+  $curr = "(MAIN)";
+}
+
+if (/^=(?!cut)\w/) {
+  $comment++;
+} elsif (/^=cut/) {
+  $comment=0;
+}
+
+next if $comment;
+
+if (/^sub\s+(\w+)(?:\s+{)?\s*$/) {
+  $curr = $1;
+  $all{$curr} = {};
+} elsif (/^}/) {
+  $curr = "(MAIN)";
+} else {
+  while (/\b(\w+)\b/g) {
+    $all{$curr}->{$1}++;
+  }
+}
+
+END {
+  foreach my $sub (sort keys %all) {
+    print $sub;
+    print "\t$_" foreach sort grep {defined $all{$_}}
+                                   keys %{$all{$sub}} ;
+  }
+}
+
+## or in one-line format...
+## perl -nle'BEGIN{$curr = "(MAIN)"} if (/^=(?!cut)\w/) {$comment++} elsif (/^=cut/) {$comment=0}; next if $comment; if (/^sub\s+(\w+)(?:\s+{)?\s*$/) {$curr = $1; $all{$curr} = {}} elsif (/^}/) { $curr = "(MAIN)" } else {while (/\b(\w+)\b/g) { $all{$curr}->{$1}++ }} END{foreach my $sub (sort keys %all) { print $sub; print "\t$_" foreach sort grep {defined $all{$_}} keys %{$all{$sub}} }} '
+

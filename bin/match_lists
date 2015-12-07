@@ -1,0 +1,89 @@
+#!/usr/bin/perl
+
+###############################################################################
+# Program: match_lists.pl <file>*                                             #
+#    given two+ lists of items, this will produce a spreadsheet that matches  #
+#    up items in one list to items in the other list, leaving blanks where    #
+#    there is no match.  it can take in any number of lists.                  #
+#                                                                             #
+#    it's easier to see an example.  given two lists of names, it would       #
+#    produce this:                                                            #
+#                                                                             #
+#       alice    alice                                                        #
+#       bob      bob                                                          #
+#       carol                                                                 #
+#       david    david                                                        #
+#                ernest                                                       #
+#                fargo                                                        #
+#       george   george                                                       #
+# Parameters:                                                                 #
+#    <file> - text files, each one is just a list of items                    #
+# Author: Justin McGuire                                                      #
+###############################################################################
+
+use strict;
+use warnings;
+
+##
+## Main program
+##
+
+## load up all files into hashlists
+my @list_of_hashlists;
+push (@list_of_hashlists, load_from_file(shift @ARGV)) while (@ARGV);
+
+## pass the lists
+make_match_lists(@list_of_hashlists);
+
+exit;
+
+##
+## Subroutines
+##
+
+## given a bunuch of lists, see how they match up
+sub make_match_lists
+{
+    my @list_of_hashlists = @_;
+
+    my @master_list = get_master_list(@list_of_hashlists);
+    
+    foreach my $master_item (@master_list) {
+        foreach my $hashlist (@list_of_hashlists) {
+            print $hashlist->{$master_item}
+                ? "$master_item\t"
+                : "\t"
+                ;
+        }
+        print "\n";
+    }
+}
+
+## given a buch of lists, produce a sorted master list of items
+sub get_master_list
+{
+    my (@list_of_hashlists) = @_;
+    
+    my %master_list;
+    foreach my $hashlist (@list_of_hashlists) {
+        $master_list{$_} = 1 foreach (keys %$hashlist);
+    }
+    return sort keys %master_list;
+}
+
+## load in a list from a file, and return hashlist reference
+sub load_from_file
+{
+    my $file = shift;
+    
+    my %list;
+    open my $LIST_FH, '<', $file or die "can't load $file: $!";
+    while (<$LIST_FH>) {
+    	chomp;
+        s/^\s+//;
+        s/\s+$//;
+    	$list{$_} = 1;
+    }
+    close $LIST_FH;
+    return \%list;
+}

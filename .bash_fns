@@ -32,3 +32,9 @@ add_spacer_to_dock () {
   defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
   killall Dock
 }
+
+## read markdown
+rmd () {
+  pandoc $1 | lynx -stdin
+}
+

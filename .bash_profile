@@ -17,7 +17,8 @@ fi
 
 export HISTCONTROL=erasedups
 
-export PS1="\[\033[G\][\h \w] $ "
+#export PS1="\[\033[G\][\h \w] $ "
+export PS1="[\h \w] $ "
 export EDITOR=vi
 
 export PATH=$HOME/bin:$PATH

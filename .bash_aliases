@@ -11,10 +11,11 @@ alias refresh_aliases='source ~/.bash_aliases'
 alias ..="cd .."
 alias ...="cd ../.."
 alias wl="wc -l"
-alias l="ls -lAFhG" | grep -ve '\.\<\(DS_Store\|localized\)\>'
+alias l="ls -lAFh"
+#l() { ls -lAFhG $* | grep -ve '\.\<\(DS_Store\|localized\)\>'; }
 alias lw="ls -A| wl"
 alias cx="chmod ug+x"
-alias findx="find . -path '*.svn*' -prune -o -type f -print0 | xargs -0 grep -i -P "
+alias findx="find . -path '*.svn*' -prune -o -type f -print0 | xargs -0 grep -i -E "
 alias grepf="find . -path '*.svn*' -prune -o -type f -print | grep -i "
 alias grepp="grep -P " ## perl
 alias rest="cd;clear"
@@ -54,6 +55,8 @@ alias list_colors_in_css="grep -n color \$1 | perl -F'\s|:' -anle'/(#[\da-fA-F]{
 alias git_branch_changes='for k in `git branch | perl -pe s/^..//`; do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k -- | head -n 1`\\t$k; done | sort -r'
 
 alias list_extensions='ls | perl -nE'\''mext unless /\.([^.]*)$/; print $1'\'' | sort | uniq -c | sort -rn'
+
+alias start_server="python -m SimpleHTTPServer 8000"
 
 ## misc fun
 

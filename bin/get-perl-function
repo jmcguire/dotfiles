@@ -1,0 +1,4 @@
+#!/usr/bin/perl -n
+BEGIN { $subname = shift @ARGV; }
+print if /^sub \s+ $subname/x .. /^}/
+

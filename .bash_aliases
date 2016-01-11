@@ -12,9 +12,10 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias wl="wc -l"
 alias l="ls -lAFh"
+#l() { ls -lAFhG $* | grep -ve '\.\<\(DS_Store\|localized\)\>'; }
 alias lw="ls -A| wl"
 alias cx="chmod ug+x"
-alias findx="find . -path '*.svn*' -prune -o -type f -print0 | xargs -0 grep -i -P "
+alias findx="find . -path '*.svn*' -prune -o -type f -print0 | xargs -0 grep -i -E "
 alias grepf="find . -path '*.svn*' -prune -o -type f -print | grep -i "
 alias grepp="grep -P " ## perl
 alias rest="cd;clear"
@@ -56,6 +57,8 @@ alias git_branch_changes='for k in `git branch | perl -pe s/^..//`; do echo -e `
 alias list_extensions='ls | perl -nE'\''mext unless /\.([^.]*)$/; print $1'\'' | sort | uniq -c | sort -rn'
 
 alias update_perl='curl -L http://xrl.us/installperlosx | bash'
+
+alias start_server="python -m SimpleHTTPServer 8000"
 
 ## misc fun
 

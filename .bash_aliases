@@ -55,6 +55,8 @@ alias git_branch_changes='for k in `git branch | perl -pe s/^..//`; do echo -e `
 
 alias list_extensions='ls | perl -nE'\''mext unless /\.([^.]*)$/; print $1'\'' | sort | uniq -c | sort -rn'
 
+alias update_perl='curl -L http://xrl.us/installperlosx | bash'
+
 ## misc fun
 
 alias sumup="awk '{total = total + \$1} END {print total}'"

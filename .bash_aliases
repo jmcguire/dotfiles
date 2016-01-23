@@ -40,6 +40,7 @@ alias dusk="du -sk * 2>/dev/null | sort -rn"
 alias myps="ps -eo user,pid,etime,fname,args | grep ^$USER | grep -v ' ps ' | grep -v ' grep $USER'"
 alias dirsize="du -h * | perl -ne'print if m,\t[^/]+$,'"
 alias all_permissions="ls -lR . | awk '{print \$1}' | sort -u | grep -v total | grep -v '^\\./'"
+alias list_extensions='ls | perl -nE'\''next unless /\.([^.]*)$/; print $1'\'' | sort | uniq -c | sort -rn'
 
 ## software debugging help
 
@@ -51,12 +52,14 @@ alias remove_tabs="perl -i -pe's/\t/    /g'"
 alias find_long_subs='perl -nE'\''BEGIN{$a=1 if @ARGV>1}if(/^sub (\w+)\b/){$subs{($a?"${ARGV}::":"").$sub}=$c if $c>=100;$sub=$1;$c=0}else{$c++}END{say "$subs{$_}\t$_"foreach sort keys %subs}'\'''
 ## print line number and color code
 alias list_colors_in_css="grep -n color \$1 | perl -F'\s|:' -anle'/(#[\da-fA-F]{3,6})/; print qq{\$F[0] \$1}' "
+alias py_compile="python -m py_compile"
 
 alias git_branch_changes='for k in `git branch | perl -pe s/^..//`; do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k -- | head -n 1`\\t$k; done | sort -r'
 
-alias list_extensions='ls | perl -nE'\''mext unless /\.([^.]*)$/; print $1'\'' | sort | uniq -c | sort -rn'
+alias update_perl='curl -L http://xrl.us/installperlosx | bash'
 
 alias start_server="python -m SimpleHTTPServer 8000"
+
 
 ## misc fun
 

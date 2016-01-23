@@ -1,4 +1,12 @@
+#!/bin/sh
+
 ## execute this to setup your environment
+
+## by default our dotfiles dir appears as a non-hidden dir, lets change that
+if [ -d ~/dotfiles ]; then
+  echo "hiding .dotfiles/"
+  mv ~/dotfiles ~/.dotfiles
+fi
 
 ## save our current settings
 if [ -f ~/.bash_profile ]; then
@@ -9,18 +17,29 @@ else
   touch ~/.bash_local
 fi
 
-echo "creating dot aliases"
-ln -s ~/.dotfiles/.bash_profile ~/.bash_profile
-ln -s ~/.dotfiles/.bash_aliases ~/.bash_aliases
-ln -s ~/.dotfiles/.bash_fns ~/.bash_fns
-ln -s ~/.dotfiles/.vimrc ~/.vimrc
-ln -s ~/.dotfiles/.vim/ ~/.vim/
-ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
-ln -s ~/.dotfiles/.my.gitignore ~/.gitignore
+## link my dotfiles
+for filename in .bash_profile .bash_aliases .bash_fns .vimrc .vim/ .gitconfig; do
+  if [ ! -e ~/$filename ]; then
+    echo "linking dotfile $filename"
+    ln -s ~/.dotfiles/$filename ~/$filename
+  else
+    echo "dotfile $filename already exists, skipping"
+  fi
+done
+
+## special handling for .gitignore
+if [ ! -e ~/.gitignore ]; then
+  echo "linking dotfile .gitignore"
+  ln -s ~/.dotfiles/.my.gitignore ~/.gitignore
+else
+  echo "dotfile .gitignore already exists, skipping"
+fi
 
 ## setup the .bashrc file
-echo "sourcing .bash_profile in .bashrc"
-cat >> ~/.bashrc <<EOF
+grep -q "bash_profile" ~/.bashrc
+if [ $? -eq 0 ]; then
+  echo "sourcing .bash_profile in .bashrc"
+  cat >> ~/.bashrc <<EOF
 
 ## source my global definitions
 if [ -f ~/.bash_profile ]; then
@@ -28,11 +47,6 @@ if [ -f ~/.bash_profile ]; then
 fi
 
 EOF
-
-## by default our dotfiles dir appears as a non-hidden dir, lets change that
-if [ -d ~/dotfiles ]; then
-  echo "hiding .dotfiles/"
-  mv ~/dotfiles ~/.dotfiles
 fi
 
 ## setup the bin/ directory
@@ -44,8 +58,8 @@ fi
 ## linking my common scripts
 for filename in get-perl-function intersection perl-sub-info pm_info.pl; do
   if [ ! -e ~/bin/$filename ]; then
-    echo "linking $filename"
-    ln -s ~/dotfiles/bin/$filename ~/bin/$filename
+    echo "linking script $filename"
+    ln -s ~/.dotfiles/bin/$filename ~/bin/$filename
   fi
 done
 

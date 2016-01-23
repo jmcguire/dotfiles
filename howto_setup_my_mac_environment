@@ -29,4 +29,6 @@ setup dotfiles:
 get basic utilities:
 
   sudo gem install sass
+  homebrew install lynx
+  homebrew install pandoc
 

@@ -39,3 +39,8 @@ set errorformat+=%m\ at\ %f\ line\ %l
 " remember marks for 50 files, copy up to 1000 lines, ignore 10kb copies
 set viminfo='50,<1000,s10
 
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
+augroup END
+

@@ -56,7 +56,7 @@ if [ ! -d ~/bin ]; then
 fi
 
 ## linking my common scripts
-for filename in get-perl-function intersection perl-sub-info pm_info.pl; do
+for filename in get-perl-function intersection perl-sub-info pm_info.pl rename.pl; do
   if [ ! -e ~/bin/$filename ]; then
     echo "linking script $filename"
     ln -s ~/.dotfiles/bin/$filename ~/bin/$filename

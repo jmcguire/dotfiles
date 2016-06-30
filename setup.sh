@@ -11,7 +11,9 @@ fi
 ## save our current settings
 if [ -f ~/.bash_profile ]; then
   echo "saving .bash_profile to .bash_local"
+  echo "## copied from old .bash_profile" >>~/.bash_local
   cat ~/.bash_profile >>~/.bash_local
+  rm ~/.bash_profile
 else
   echo "creating .bash_local"
   touch ~/.bash_local

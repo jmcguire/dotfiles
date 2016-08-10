@@ -11,7 +11,9 @@ fi
 ## save our current settings
 if [ -f ~/.bash_profile ]; then
   echo "saving .bash_profile to .bash_local"
+  echo "## copied from old .bash_profile" >>~/.bash_local
   cat ~/.bash_profile >>~/.bash_local
+  rm ~/.bash_profile
 else
   echo "creating .bash_local"
   touch ~/.bash_local
@@ -56,7 +58,7 @@ if [ ! -d ~/bin ]; then
 fi
 
 ## linking my common scripts
-for filename in get-perl-function intersection perl-sub-info pm_info.pl; do
+for filename in get-perl-function intersection perl-sub-info pm_info.pl rename.pl; do
   if [ ! -e ~/bin/$filename ]; then
     echo "linking script $filename"
     ln -s ~/.dotfiles/bin/$filename ~/bin/$filename

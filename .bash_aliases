@@ -60,6 +60,9 @@ alias update_perl='curl -L http://xrl.us/installperlosx | bash'
 
 alias start_server="python -m SimpleHTTPServer 8000"
 
+# get list of objects and functions in a python file
+alias python_structure="perl -ne'print if /\\b(?<!:)(class|def)\\s/'"
+
 
 ## misc fun
 

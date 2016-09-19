@@ -33,6 +33,7 @@ shopt -s checkwinsize
 set -o ignoreeof
 shopt -s no_empty_cmd_completion
 shopt -s lithist
+#shopt -s globstar
 
 ## source my local/custom definitions
 ## (this should always be last)

@@ -32,3 +32,8 @@ get basic utilities:
   homebrew install lynx
   homebrew install pandoc
 
+make the mac better:
+
+  # make plaintext the default for texteditor
+  defaults write com.apple.TextEdit RichText -int 0
+

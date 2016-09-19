@@ -1,0 +1,103 @@
+brew install mutt --with-debug
+
+might need to brew update first
+
+create the .mutt directory stuff
+
+mkdir -p ~/.mutt/cache/headers
+mkdir ~/.mutt/cache/bodies
+touch ~/.mutt/certificates
+
+create the .muttrc
+
+  set from      = 'USERNAME@gmail.com'
+  set realname  = 'REAL NAME'
+  set imap_user = 'USERNAME@gmail.com'
+  set imap_pass = ''
+  set smtp_url  = 'smtp://USERNAME@smtp.gmail.com:587/' # or 465
+  set smtp_pass = '' # use the same password as for IMAP
+  set smtp_authenticators = 'gssapi:login'
+
+  # remote gmail folders
+  set folder    = 'imaps://imap.gmail.com'
+  set spoolfile = '+INBOX'
+  set record    = ''
+  set postponed = '+[Google Mail]/Drafts'
+
+  # local folders for cached headers and certificates
+  set header_cache     = ~/.mutt/cache/headers
+  set message_cachedir = ~/.mutt/cache/bodies
+  set certificate_file = ~/.mutt/certificates
+
+  # optional, change to your favorite editor
+  set editor = 'nono'
+
+  # make Mutt a bit easier to navigate
+  bind editor <space> noop
+  macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+  macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+  macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+   macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+  # All Mail will fetch every piece of mail, ever, then hang
+  # never ever go to All Mail
+
+  # make Mutt a bit easier to use
+  set sort = threads
+  set sort_aux = reverse-last-date-received
+  set uncollapse_jump
+  set sort_re
+  ignore "Authentication-Results:"
+  ignore "DomainKey-Signature:"
+  ignore "DKIM-Signature:"
+  hdr_order Date From To Cc
+
+
+chmod -R 700 .muttrc .mutt/
+
+create an app-specific password for mutt:
+  see directions at: https://support.google.com/accounts/answer/185833
+  go to https://security.google.com/settings/security/apppasswords
+  go to the "Select app" drop down, select "Other", and type in Mutt (or anything, really)
+  copy the password, it's a 16 character string
+  use that for your imap_password
+
+enable IMAP in gmail:
+  see directions at: https://support.google.com/mail/troubleshooter/1668960
+  In GMail:
+  Click the gear icon in the upper right
+  Select ***Settings***
+  Select ***Forwarding and POP/IMAP***
+  Select ***Enable IMAP***
+  Click ***Save Changes***
+
+make MUTT more friendly:
+
+GOOBOOK:
+
+  pip install goobook --ignore-installed six
+  (may have to use sudo)
+  goobook authenticate
+  (will open up a browser window)
+  goobook reload
+  chmod   600 .goobook*
+  add these lines to .muttrc:
+
+    set query_command="goobook query %s"
+    set editor = "vim --cmd 'let g:goobookrc=\"/Users/jp/.goobookrc\"'"
+    bind editor <Tab> complete-query
+
+
+MUTT COMMANDS:
+
+Mutt uses a lot of single letter commands. Here are the most common.
+
+m - create a new message
+d - delete a message
+u - undelete a message
+r - reply to a message
+$ - update server (when you delete messages, they aren't deleted until you do an update, with $)
+q - quit
+
+if you have goobook installed, when you are choosing the "To" email, you can type part of a name, then hit tab, and a list of matching options will pop up
+
+

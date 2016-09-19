@@ -1,14 +1,14 @@
-set wrap
-set tabstop=2
-set shiftwidth=2
-set expandtab
-
 set ignorecase
 set smartcase
 set novisualbell
 set noautoindent
 set nosmartindent
 set paste " for better pasting, and no auto-commenting
+
+set wrap
+set tabstop=2
+set shiftwidth=2
+set expandtab " has to be after set paste
 
 " these are useful, but annoyingly implemented/colored
 set nohlsearch
@@ -43,4 +43,6 @@ augroup markdown
     au!
     au BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
 augroup END
+
+
 

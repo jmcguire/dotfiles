@@ -9,5 +9,5 @@
   use = true
 
 [core]
-	excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore
 

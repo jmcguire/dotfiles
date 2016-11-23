@@ -1,0 +1,28 @@
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+# For setting Terminal window/tab names
+function set-title() {
+	if [[ -z "$ORIG" ]]; then
+		ORIG=$PS1
+	fi
+	TITLE="\[\e]2;$@\a\]"
+	PS1=${ORIG}${TITLE}
+}
+
+# DOCKER COMMANDS
+alias dsql="docker exec -i -t mysql-docker mysql -u root --password=password RSO_01 -A"
+alias jlog="docker logs -f jboss-docker"
+alias dstart="docker start mysql-docker rabbitmq-docker jboss-docker"
+alias dstop="docker stop jboss-docker mysql-docker rabbitmq-docker"
+alias drm="docker rm rabbitmq-docker mysql-docker jboss-docker"
+alias dps="docker ps -a"
+alias drj="docker restart jboss-docker"
+
+alias vi="vim"
+
+source ~/lib/perl5/perlbrew/etc/bashrc
+
+# make ls sort hidden files first
+export LC_COLLATE="C"
+
+

@@ -10,7 +10,6 @@ thumbs.db
 Desktop.ini
 
 ## Linux.gitignore
-.*
 *~
 *.swp
 .directory

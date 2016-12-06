@@ -1,4 +1,8 @@
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin
+export PYTHONPATH=$PYTHONPATH:~/lib/python
+
+source /usr/bin/virtualenvwrapper.sh
+source ~/lib/perl5/perlbrew/etc/bashrc
 
 # For setting Terminal window/tab names
 function set-title() {
@@ -20,9 +24,6 @@ alias drj="docker restart jboss-docker"
 
 alias vi="vim"
 
-source ~/lib/perl5/perlbrew/etc/bashrc
-
 # make ls sort hidden files first
 export LC_COLLATE="C"
-
 

@@ -1,0 +1,5 @@
+#!/usr/bin/perl -n
+BEGIN { $defname = shift @ARGV; }
+# flip flop, but exclude the last line
+print if ((/^def \s+ $defname/x ... /^[\S]/) and /^(def \s+ $defname|\s)/x)
+

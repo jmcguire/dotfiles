@@ -6,9 +6,9 @@ set nosmartindent
 set paste " for better pasting, and no auto-commenting
 
 set wrap
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab " has to be after set paste
 
 " these are useful, but annoyingly implemented/colored

@@ -73,3 +73,5 @@ dwsync.xml
 .cvsignore
 */.cvsignore
 
+## Python ignore
+*.pyc

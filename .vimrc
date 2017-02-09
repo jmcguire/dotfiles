@@ -6,10 +6,18 @@ set nosmartindent
 set paste " for better pasting, and no auto-commenting
 
 set wrap
-set tabstop=4
+set tabstop=4 " what tabs are shown as
 set shiftwidth=4
 set softtabstop=4
 set expandtab " has to be after set paste
+
+"au BUfNewFile,BufRead *py
+"    \ set tabstop=8
+"    \ set shiftwidth=4
+"    \ set softtabstop=4
+"    \ set expandtab
+"    \ set foldmethod=indent " enabled code folding, with za
+"    \ set foldlevel=99
 
 " these are useful, but annoyingly implemented/colored
 set nohlsearch

@@ -1,0 +1,29 @@
+setup github ssh keys:
+
+  ssh-keygen -t rsa -b 4096 -C "jm@landedstar.com"
+  ssh-add .ssh/id_rsa
+  (copy .ssh/id_rsa.pub)
+  (add to github.com/settings/ssh)
+  ssh -T git@github.com
+
+setup dotfiles:
+
+  git clone git@github.com:jmcguire/dotfiles.git
+  cd dotfiles
+  ./setup.sh
+
+get basic utilities:
+
+  sudo gem install sass
+  sudo apt-get install lynx
+  sudo apt-get install pandoc
+
+fix grub to fic freezes
+
+    vi nano /etc/default/grub
+
+There is a line in that: GRUB_CMDLINE_LINUX_DEFAULT="quiet splash" (like this), replace with: GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_idle.max_cstate=1"
+
+    sudo update-grub
+    sudo reboot
+

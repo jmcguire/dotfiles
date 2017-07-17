@@ -13,6 +13,7 @@ alias ...="cd ../.."
 alias wl="wc -l"
 alias l="ls -lAFh"
 #l() { ls -lAFhG $* | grep -ve '\.\<\(DS_Store\|localized\)\>'; }
+alias l1="ls -1"
 alias lw="ls -A| wl"
 alias cx="chmod ug+x"
 alias findx="find . -path '*.svn*' -prune -o -type f -print0 | xargs -0 grep -i -E "

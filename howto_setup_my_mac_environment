@@ -29,8 +29,8 @@ setup dotfiles:
 get basic utilities:
 
   sudo gem install sass
-  homebrew install lynx
-  homebrew install pandoc
+  brew install lynx
+  brew install pandoc
 
 make the mac better:
 

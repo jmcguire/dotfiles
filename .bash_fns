@@ -34,7 +34,7 @@ add_spacer_to_dock () {
 }
 
 ## read markdown
-rmd () {
+read_md () {
   pandoc $1 | lynx -stdin
 }
 

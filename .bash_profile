@@ -15,12 +15,15 @@ fi
 ##
 
 export HISTCONTROL=erasedups
+# Automatically highlight matches with grep
+export GREP_OPTIONS=--color=auto
+export PERL_UNICODE=AS
 
 #export PS1="\[\033[G\][\h \w] $ "
 export PS1="[\h \w] $ "
 export EDITOR=vi
 
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/perl5/bin/:$PATH
 
 ##
 ## adjust the way bash works

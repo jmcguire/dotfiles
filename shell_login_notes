@@ -1,0 +1,12 @@
+# User-specific settings for all shells
+
+# There are 3 different types of shells in bash: the login shell, normal shell
+# and interactive shell. Login shells read ~/.profile and interactive shells
+# read ~/.bashrc; in our setup, /etc/profile sources ~/.bashrc - thus all
+# settings made here will also take effect in a login shell.
+
+# Generally, environment variables should be set in the profile files. They
+# will be set once in the first shell you open (the login shell), and any
+# shells spawned from it  will inherit the login shell's environment variables.
+# Aliases, which do not carry over like environment variables,  should be set
+# in rc files, so that they are recreated every time a shell starts.

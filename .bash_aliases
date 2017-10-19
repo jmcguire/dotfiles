@@ -20,7 +20,7 @@ alias findx="find . -path '*.svn*' -prune -o -type f -print0 | xargs -0 grep -i 
 alias grepf="find . -path '*.svn*' -prune -o -type f -print | grep -i "
 alias grepp="grep -P " ## perl
 alias rest="cd;clear"
-alias g="git"
+#alias g="git"
 
 ## redoing basic commands
 
@@ -48,12 +48,14 @@ alias list_extensions='ls | perl -nE'\''next unless /\.([^.]*)$/; print $1'\'' |
 alias mypath="echo \$PATH | sed 's/:/\n/g'"
 alias long_lines="perl -nle's/.{0,80}//; if (\$_) { print qq{\$.: \$_} }'"
 alias crongrep="crontab -l | grep"
-alias remove_tabs="perl -i -pe's/\t/    /g'"
+alias tabs_to_spaces="perl -i -pe's/\t/    /g'"
+alias spaces_to_tabs="perl -i -pe's/\G[ ]{4}/\t/g'"
 ## find 100+ line perl subroutines. note, does not work with Moose stuff.
 alias find_long_subs='perl -nE'\''BEGIN{$a=1 if @ARGV>1}if(/^sub (\w+)\b/){$subs{($a?"${ARGV}::":"").$sub}=$c if $c>=100;$sub=$1;$c=0}else{$c++}END{say "$subs{$_}\t$_"foreach sort keys %subs}'\'''
 ## print line number and color code
 alias list_colors_in_css="grep -n color \$1 | perl -F'\s|:' -anle'/(#[\da-fA-F]{3,6})/; print qq{\$F[0] \$1}' "
 alias py_compile="python -m py_compile"
+alias perl_libraries="find . -name '*pm' -print | grep -v _Test.pm | xargs egrep '^\s*(require|use)\b' | grep -v constant | cut -d: -f2- | sed 's/^[ \t]*//' | sed 's/ qw.*$/;/g' | sort -u"
 
 alias git_branch_changes='for k in `git branch | perl -pe s/^..//`; do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k -- | head -n 1`\\t$k; done | sort -r'
 

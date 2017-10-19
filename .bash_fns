@@ -34,7 +34,7 @@ add_spacer_to_dock () {
 }
 
 ## read markdown
-read_md () {
+readm () {
   pandoc $1 | lynx -stdin
 }
 
@@ -42,5 +42,24 @@ read_md () {
 ## e.g. $ json_structure input.json
 json_structure() {
     perl -ne'if(/^[\W_]+$/ or /"\w+" \s* : \s* [\[{]/x){ print }' $1
+}
+
+## see the module and function of perl code in a directory
+## e.g. $ perl_structure
+function perl_structure {
+    find . -name "*_Test.pm" -prune -o -type f -print0 \
+    | xargs -0 perl -nle'
+        BEGIN{ $last_p = undef} 
+        $last_p = undef if eof;
+        ($p) = /^package (.+);/;
+        $last_p = $p if $p;
+        ($s) = /^sub (\w+)\b/;
+        next unless $s;
+        $all{$last_p}{$s}++;
+        END{ for $p (keys %all) { print "\n$p"; print "\t$_" foreach keys %{$all{$p}} }}'
+}
+
+function tailgrep {
+	tailf $1 | grep --line-buffered "$2"
 }
 

@@ -11,7 +11,8 @@ alias refresh_aliases='source ~/.bash_aliases'
 alias ..="cd .."
 alias ...="cd ../.."
 alias wl="wc -l"
-alias l="ls -lAFh"
+alias l="ls -lAF --human-readable"
+#alias l="ls -lAF --group-directories-first --human-readable"
 #l() { ls -lAFhG $* | grep -ve '\.\<\(DS_Store\|localized\)\>'; }
 alias l1="ls -1"
 alias lw="ls -A| wl"
@@ -55,7 +56,8 @@ alias find_long_subs='perl -nE'\''BEGIN{$a=1 if @ARGV>1}if(/^sub (\w+)\b/){$subs
 ## print line number and color code
 alias list_colors_in_css="grep -n color \$1 | perl -F'\s|:' -anle'/(#[\da-fA-F]{3,6})/; print qq{\$F[0] \$1}' "
 alias py_compile="python -m py_compile"
-alias perl_libraries="find . -name '*pm' -print | grep -v _Test.pm | xargs egrep '^\s*(require|use)\b' | grep -v constant | cut -d: -f2- | sed 's/^[ \t]*//' | sed 's/ qw.*$/;/g' | sort -u"
+## list of all perl libraries in use, starting from current folder, ordered by most used
+alias perl_libraries="find . -name '*pm' -print | grep -v _Test.pm | xargs egrep '^\s*(require|use)\b' | grep -v constant | cut -d: -f2- | sed 's/^[ \t]*//' | sed 's/ qw.*$/;/g' | perl -ne'print unless /use [a-z]/' | sort | uniq -c | sort -rn"
 
 alias git_branch_changes='for k in `git branch | perl -pe s/^..//`; do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k -- | head -n 1`\\t$k; done | sort -r'
 

@@ -18,6 +18,7 @@ export HISTCONTROL=erasedups
 # Automatically highlight matches with grep
 export GREP_OPTIONS=--color=auto
 export PERL_UNICODE=AS
+export LC_COLLATE="C"
 
 #export PS1="\[\033[G\][\h \w] $ "
 export PS1="[\h \w] $ "

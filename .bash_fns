@@ -63,3 +63,8 @@ function tailgrep {
 	tailf $1 | grep --line-buffered "$2"
 }
 
+function v {
+	wl $1
+	l $1
+	head $1
+}

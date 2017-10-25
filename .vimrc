@@ -26,7 +26,7 @@ let loaded_matchparen = 1
 
 set bg=dark
 syntax on
-colorscheme torte
+colorscheme dracula "torte
 
 set wildmenu
 

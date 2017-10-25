@@ -11,7 +11,7 @@ alias refresh_aliases='source ~/.bash_aliases'
 alias ..="cd .."
 alias ...="cd ../.."
 alias wl="wc -l"
-alias l="ls -lAF --human-readable"
+alias l="ls -lAFh"
 #alias l="ls -lAF --group-directories-first --human-readable"
 #l() { ls -lAFhG $* | grep -ve '\.\<\(DS_Store\|localized\)\>'; }
 alias l1="ls -1"

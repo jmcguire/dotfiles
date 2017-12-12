@@ -18,12 +18,20 @@ get basic utilities:
   sudo apt-get install lynx
   sudo apt-get install pandoc
 
-fix grub to fic freezes
+fix grub to fix freezes:
 
-    vi nano /etc/default/grub
+  vi nano /etc/default/grub
 
-There is a line in that: GRUB_CMDLINE_LINUX_DEFAULT="quiet splash" (like this), replace with: GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_idle.max_cstate=1"
+there is a line in that: GRUB_CMDLINE_LINUX_DEFAULT="quiet splash" (like this), replace with: GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_idle.max_cstate=1"
 
-    sudo update-grub
-    sudo reboot
+  sudo update-grub
+  sudo reboot
+
+perl:
+
+  curl -L https://install.perlbrew.pl | bash
+  curl -L https://cpanmin.us | perl - App::cpanminus
+  echo "source ~/perl5/perlbrew/etc/bashrc" | cat >>~/.bash_local
+  perlbrew install stable
+
 

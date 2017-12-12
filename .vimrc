@@ -6,9 +6,9 @@ set nosmartindent
 set paste " for better pasting, and no auto-commenting
 
 set wrap
-set tabstop=4 " what tabs are shown as
-set shiftwidth=4
-set softtabstop=4
+set tabstop=4 " what hard tabs are shown as
+set shiftwidth=4 " how many columns indent-operations will indent by
+set softtabstop=4 " only matters if noexpandtab, just make it same as tabstop
 set expandtab " has to be after set paste
 
 "au BUfNewFile,BufRead *py
@@ -26,7 +26,7 @@ let loaded_matchparen = 1
 
 set bg=dark
 syntax on
-colorscheme dracula "torte
+colorscheme dracula
 
 set wildmenu
 
@@ -34,6 +34,7 @@ set encoding=utf-8  " The encoding displayed.
 set fileencoding=utf-8  " The encoding written to file.
 
 au BufNewFile,BufRead *.t setfiletype perl " perl test files
+au BufNewFile,BufRead *.esp setfiletype perl " html files, filled with perl
 
 " for jumping around via paragaphs, treat a line of whitespace like a blank line
 " (update needed: don't wrap past the end of file)
@@ -46,7 +47,7 @@ set errorformat+=%m\ at\ %f\ line\ %l\.
 set errorformat+=%m\ at\ %f\ line\ %l
 
 " remember marks for 50 files, copy up to 1000 lines, ignore 10kb copies
-set viminfo='50,<1000,s10
+set viminfo='50,<1000 ",s10
 
 augroup markdown
     au!

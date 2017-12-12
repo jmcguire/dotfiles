@@ -36,6 +36,8 @@ export ISDEVELOPMENT='Y'
 
 ## JUSTIN-SPECIFIC
 
+shopt -s globstar
+
 export JIRAPROJECT='EIP'
 export VERIFY_CODE_OPTIONS="--strict"
 export PERL5LIB="$PERL5LIB:$HOME/lib/perl5"
@@ -45,6 +47,9 @@ export LS_COLORS="no=00:fi=00:di=01;34:ln=00;36:pi=40;32:so=01;35:do=01;35:bd=40
 
 alias pc="perl -MAthena::Lib -c"
 alias myglimpse="aglimpse --build prod --nowiki"
+alias p1="perl -MAthena::Lib -MData::Dumper -MAthena::Util::Database=DBConnect -MAthena::Util::JSON=EncodeJSON"
+alias start_worker="perl $ATHENA_HOME/scripts/app/platform/worker.pl --start --reset --nodaemon &"
+alias stop_worker="myps | grep worker | awk '{print $2}' | while read p; do kill -2 $p; done;"
 
 ## see the OO inheritance of Athena-style objects
 perl_oo_structure() {
@@ -64,23 +69,28 @@ function remove_files_from_out {
 	perl -i -ne'print if /\.(pl|pm|t|esp): /i' $1
 }
 
-function kill_httpd {
-	kill    $1; sleep 5;
-	kill -2 $1; sleep 5;
-	kill -9 $1
-}
-
 function restart_httpd {
 	unharr jmcguirefeature
+
 	for pid in $(myps | perl -ane'print $F[1] . " " if $F[3] eq "httpd"')
 	do
 		kill    $pid; sleep 3;
+	done
+
+	for pid in $(myps | perl -ane'print $F[1] . " " if $F[3] eq "httpd"')
+	do
 		kill -2 $pid; sleep 3;
+	done
+
+	for pid in $(myps | perl -ane'print $F[1] . " " if $F[3] eq "httpd"')
+	do
 		kill -9 $pid
 	done
+
 	harr --optimize jmcguirefeature
 }
 
+
 source ~/.bashrc
 source ~/.bashmarks.sh
-branch EIP/betteraggregate
+branch EIP/large_file_upload_niw

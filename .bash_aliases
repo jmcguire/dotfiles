@@ -58,8 +58,8 @@ alias list_colors_in_css="grep -n color \$1 | perl -F'\s|:' -anle'/(#[\da-fA-F]{
 alias py_compile="python -m py_compile"
 ## list of all perl libraries in use, starting from current folder, ordered by most used
 alias perl_libraries="find . -name '*pm' -print | grep -v _Test.pm | xargs egrep '^\s*(require|use)\b' | grep -v constant | cut -d: -f2- | sed 's/^[ \t]*//' | sed 's/ qw.*$/;/g' | perl -ne'print unless /use [a-z]/' | sort | uniq -c | sort -rn"
-## show the broad structure of a perl file
-alias perl_file_structure="perl -ne'print if /^[^#]*(?<!\\$)\b(sub|if|elif|else|for|foreach|while|unless|until|do|next|last|redo|continue|given|when|goto|return|die|try|catch)\b/'"
+#@ show the broad structure of a perl file
+alias perl_code_structure="perl -ne'print if /^[^#]*(?<!\\$)\b(sub|if|elif|else|for|foreach|while|unless|until|do|next|last|redo|continue|given|when|goto|return|die|try|catch)\b/'"
 
 alias git_branch_changes='for k in `git branch | perl -pe s/^..//`; do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k -- | head -n 1`\\t$k; done | sort -r'
 
@@ -74,6 +74,7 @@ alias python_structure="perl -ne'print if /\\b(?<!:)(class|def)\\s/'"
 ## misc fun
 
 alias sumup="awk '{total = total + \$1} END {print total}'"
+alias to_json="p1 -MJSON::XS -MData::Dumper -nE'print Dumper JSON::XS::decode_json(\$_)'"
 
 
 

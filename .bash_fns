@@ -45,8 +45,8 @@ json_structure() {
 }
 
 ## see the module and function of perl code in a directory
-## e.g. $ perl_structure
-function perl_structure {
+## e.g. $ perl_dir_structure
+function perl_dir_structure {
     find . -name "*_Test.pm" -prune -o -type f -print0 \
     | xargs -0 perl -nle'
         BEGIN{ $last_p = undef} 
@@ -68,3 +68,13 @@ function v {
 	l $1
 	head $1
 }
+
+function perl_sub_size {
+	for sub in $(grep ^sub $1 | cut -d\  -f2); do len=`get-perl-function $sub $1 | wl`; printf "%d %s\n" $len $sub; done
+}
+
+# given a file with categories and tabbed-in items in those categories, count the number of items in each category
+function count_categories {
+	perl -nE'if($seq = /^\w/ .. /^$/) { if ($seq == 1){ $total=0; print } elsif ($seq =~ /E/){say $total} else {$total++} }' $1
+}
+

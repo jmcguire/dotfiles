@@ -22,7 +22,7 @@ export LC_COLLATE="C"
 
 #export PS1="\[\033[G\][\h \w] $ "
 export PS1="[\h \w] $ "
-export EDITOR=vi
+export EDITOR=vim
 
 export PATH=$HOME/bin:$HOME/perl5/bin/:$PATH
 

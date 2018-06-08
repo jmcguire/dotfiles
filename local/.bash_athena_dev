@@ -48,11 +48,19 @@ export LS_COLORS="no=00:fi=00:di=01;34:ln=00;36:pi=40;32:so=01;35:do=01;35:bd=40
 alias pc="perl -MAthena::Lib -c"
 alias myglimpse="aglimpse --build prod --nowiki"
 alias p1="perl -MAthena::Lib -MData::Dumper -MAthena::Util::Database=DBConnect -MAthena::Util::JSON=EncodeJSON"
-alias start_worker="perl $ATHENA_HOME/scripts/app/platform/worker.pl --start --reset --nodaemon &"
-alias stop_worker="myps | grep worker | awk '{print $2}' | while read p; do kill -2 $p; done;"
+# my $dbh = DBConnect({INSTANCE => "MAINFTR2", SCHEMA => "ATHENA432"});
+alias start_worker="perl $ATHENA_HOME/scripts/app/platform/worker.pl --start --reset --nodaemon 2>&1 >>$HOME/logs/worker_${HOSTNAME:0:6} &"
+alias stop_worker="myps | grep worker | awk '{print \$2}' | while read p; do kill -2 \$p; done;"
+alias ha="harr dev backend feature=\$BUILDNAME"
+alias python3="/home/akopp/local/bin/python3"
+alias start_sublime_server="python3 /home/akopp/DevDaemon/devdaemon.py start"
+
+function most_used_no_critic {
+	myglimpse "no critic " | perl -nE'next unless ($ws = /no critic (.+)$/); $ws = $1; while ($ws =~ /(?:[A-Z][\w:]+::)?([A-Z][\w]+)/g) {say $1}' | sort | uniq -c | sort -rn
+}
 
 ## see the OO inheritance of Athena-style objects
-perl_oo_structure() {
+function perl_oo_structure {
     find . -name "*.pm" -print \
     | grep -v _Test.pm \
     | xargs perl -0777 -nE'
@@ -69,28 +77,55 @@ function remove_files_from_out {
 	perl -i -ne'print if /\.(pl|pm|t|esp): /i' $1
 }
 
-function restart_httpd {
+function stop_server {
 	unharr jmcguirefeature
+	unharr jmcguireprod
 
 	for pid in $(myps | perl -ane'print $F[1] . " " if $F[3] eq "httpd"')
 	do
-		kill    $pid; sleep 3;
+		kill    $pid
 	done
+	sleep 2
 
 	for pid in $(myps | perl -ane'print $F[1] . " " if $F[3] eq "httpd"')
 	do
-		kill -2 $pid; sleep 3;
+		kill -2 $pid
 	done
+	sleep 2
 
 	for pid in $(myps | perl -ane'print $F[1] . " " if $F[3] eq "httpd"')
 	do
 		kill -9 $pid
 	done
-
-	harr --optimize jmcguirefeature
 }
 
+function missing_tests {
+	ls | perl -nE'chomp; next if /_Test/; $file = $_; s/(\.pm)/_Test.pm/; next if -e; say "$file -- last modified " . scalar localtime `p4 fstat -T headModTime $file | cut -d\\  -f3`'
+}
 
+function get_a_file {
+	# rough idea of a function to return a file from FileRoot, given a username, database, and filename
+	p1 -Mstrict -MFileRoot -E'my $dbh = DBConnect({INSTANCE => "MTEST71", SCHEMA => "ATHENA15730"});; my $filecontents = FileRoot::GetContentsOfFile($dbh,{FILENAME => "CHARTALERT67.precsv", TYPE => "imports"}); say $filecontents;';
+}
+
+# given the output of "sql> desc tablename", turn it into a hash for an import GetSpecs
+function turn_sql_desc_to_spec {
+	perl -w -Mstrict -nE'
+		my ($name, $type, $pre, $notnull) = /^\| (\w+)\s*\| (\w+)\s*\| \s*([\d.]+)\s*\| (\w*).*?\| $/x; 
+		next unless $name;
+		next if $name =~ /^(CREATED|DELETED|LASTMODIFIED)/;
+		next if $name eq "ID";
+		my %r;
+		$r{NAME} = q{"} . $name . q{"};
+		$r{DISPLAYNAME} = q{"} . lc $name . q{"};
+		$r{DESCRIPTION} = q{"} . "$type/$pre" . q{"};
+		$r{CLEANDESCRIPTION} = q{"..."};
+		$r{REQUIRED} = 1 if $notnull;
+		$r{VALUEARRAYHASH} = q|[ { Y => "Yes" }, { N => "No" } ]| if $name =~ /YN$/;
+		say "{\n\t" . join("\n\t", grep {$_} map{$r{$_} and "$_ => $r{$_},"} qw{NAME DISPLAYNAME DESCRIPTION CLEANDESCRIPTION REQUIRED VALUEARRAYHASH}) . "\n},";
+	' $1
+}
+
+# these must be last
 source ~/.bashrc
-source ~/.bashmarks.sh
-branch EIP/large_file_upload_niw
+source ~/bin/.jump.sh

@@ -6,11 +6,6 @@ get command-line tools:
 
   xcode-select --install
 
-get the package managers:
-
-  macports: http://www.macports.org/install.php
-  homebrew: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
 setup github ssh keys:
 
   ssh-keygen -t rsa -b 4096 -C "jm@landedstar.com"
@@ -19,12 +14,19 @@ setup github ssh keys:
   pbcopy <.ssh/id_rsa.pub
   (add to github.com/settings/ssh)
   ssh -T git@github.com
+  (if that fails: ssh -T -p 443 git@ssh.github.com )
 
 setup dotfiles:
 
   git clone git@github.com:jmcguire/dotfiles.git
+  (or if you're using 443: git clone ssh://git@ssh.github.com:443/jmcguire/dotfiles.git )
   cd dotfiles
   ./setup.sh
+
+get the package managers:
+
+  macports: http://www.macports.org/install.php
+  homebrew: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 get basic utilities:
 

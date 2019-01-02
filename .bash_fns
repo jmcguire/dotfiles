@@ -70,7 +70,7 @@ function v {
 }
 
 function perl_sub_size {
-	for sub in $(grep ^sub $1 | cut -d\  -f2); do len=`get-perl-function $sub $1 | wl`; printf "%d %s\n" $len $sub; done
+	for sub in $(grep ^sub $1 | cut -d\  -f2); do len=`get-perl-function $sub $1 | wl`; printf "%d %s:%s\n" $len $1 $sub; done
 }
 
 # given a file with categories and tabbed-in items in those categories, count the number of items in each category

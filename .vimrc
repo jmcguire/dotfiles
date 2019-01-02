@@ -4,6 +4,7 @@ set novisualbell
 set noautoindent
 set nosmartindent
 set paste " for better pasting, and no auto-commenting
+"set mouse=a " use mouse scrolling
 
 set wrap
 set tabstop=4 " what hard tabs are shown as
@@ -54,5 +55,13 @@ augroup markdown
     au BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
 augroup END
 
+" markdown options, from https://github.com/plasticboy/vim-markdown
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_emphasis_multiline = 0
+let g:vim_markdown_conceal = 0
 
+" vim-plug, my plugin manager, https://github.com/junegunn/vim-plug
+" call plug#begin('~/.vim/plugged')
+" Plug 'ssh://git@bitbucket.athenahealth.com:7999/dt/athena-vim.git', { 'branch': 'release' }
+" call plug#end()
 

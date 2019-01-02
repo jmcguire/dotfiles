@@ -45,15 +45,19 @@ export PERL5LIB="$PERL5LIB:$HOME/lib/perl5"
 # Override the default ls colors
 export LS_COLORS="no=00:fi=00:di=01;34:ln=00;36:pi=40;32:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31:ex=00;32:"
 
-alias pc="perl -MAthena::Lib -c"
+alias pc="perl -MAthena::Lib -c" # test compile of athena file
+alias p1="perl -MAthena::Lib -MData::Dumper -MAthena::Util::Database=DBConnect -MAthena::Util::JSON=EncodeJSON" # a perl onliner with athena code
 alias myglimpse="aglimpse --build prod --nowiki"
-alias p1="perl -MAthena::Lib -MData::Dumper -MAthena::Util::Database=DBConnect -MAthena::Util::JSON=EncodeJSON"
 # my $dbh = DBConnect({INSTANCE => "MAINFTR2", SCHEMA => "ATHENA432"});
-alias start_worker="perl $ATHENA_HOME/scripts/app/platform/worker.pl --start --reset --nodaemon 2>&1 >>$HOME/logs/worker_${HOSTNAME:0:6} &"
+alias start_worker="nohup perl \$ATHENA_HOME/scripts/app/platform/worker.pl --start --reset --nodaemon 2>&1 >>$HOME/logs/worker_${HOSTNAME:0:6} &"
 alias stop_worker="myps | grep worker | awk '{print \$2}' | while read p; do kill -2 \$p; done;"
+alias start_scalemonitor="nohup perl \$ATHENA_HOME/scripts/app/platform/scale_monitor.pl --start --nodaemon --config=$HOME/.scalemonitor.conf 2>&1 >>$HOME/logs/scalemonitor_${HOSTNAME:0:6} 2>&1 &"
 alias ha="harr dev backend feature=\$BUILDNAME"
+alias unha="ps -eo args | grep $USER | grep httpd | cut -d. -f1 | cut -d\/ -f6 | uniq | xargs unharr"
 alias python3="/home/akopp/local/bin/python3"
 alias start_sublime_server="python3 /home/akopp/DevDaemon/devdaemon.py start"
+alias goscribe="cd /mnt/weblogs/scribe/import_arbiter_error_reporting/"
+alias tap_test="$ATHENA_HOME/../athenax/release/athenax perl-test athena"
 
 function most_used_no_critic {
 	myglimpse "no critic " | perl -nE'next unless ($ws = /no critic (.+)$/); $ws = $1; while ($ws =~ /(?:[A-Z][\w:]+::)?([A-Z][\w]+)/g) {say $1}' | sort | uniq -c | sort -rn
@@ -77,23 +81,25 @@ function remove_files_from_out {
 	perl -i -ne'print if /\.(pl|pm|t|esp): /i' $1
 }
 
+# this is broken
 function stop_server {
 	unharr jmcguirefeature
 	unharr jmcguireprod
+	unharr jmcguirepublicpersistent2
 
-	for pid in $(myps | perl -ane'print $F[1] . " " if $F[3] eq "httpd"')
+	for pid in $(myps | perl -ane'print $F[1] . " " if $F[10] eq "httpd"')
 	do
 		kill    $pid
 	done
 	sleep 2
 
-	for pid in $(myps | perl -ane'print $F[1] . " " if $F[3] eq "httpd"')
+	for pid in $(myps | perl -ane'print $F[1] . " " if $F[10] eq "httpd"')
 	do
 		kill -2 $pid
 	done
 	sleep 2
 
-	for pid in $(myps | perl -ane'print $F[1] . " " if $F[3] eq "httpd"')
+	for pid in $(myps | perl -ane'print $F[1] . " " if $F[10] eq "httpd"')
 	do
 		kill -9 $pid
 	done
@@ -126,6 +132,34 @@ function turn_sql_desc_to_spec {
 	' $1
 }
 
+# switch branch to the given branch in EIP
+# e.g. sb misc_bugs
+function scode {
+	switch_branch --switch code --to //depot/anet/features/EIP/$1/...
+	branch code
+}
+function sreview {
+	switch_branch --switch review --to //depot/anet/features/EIP/$1/...
+	branch review
+}
+
+# what I really want from org_chart
+function org {
+	org_chart --fullname $1 --up | tac | head -n -1
+	normal=`org_chart --fullname --depth 1 $1`
+	person=`echo "$normal" | head -1`
+	echo -e "\e[1m$person\e[0m"
+	echo "$normal" | tail -n +2
+}
+
+# see what i have running in every server
+function whats_running_on_every_server {
+	for server in {00..18}; do ssh -t dev1$server 'ps fux'; done
+}
+
+
 # these must be last
 source ~/.bashrc
 source ~/bin/.jump.sh
+#branch prod
+#export MASTER_ROOT_INSTANCE=PTEST1

@@ -70,11 +70,16 @@ function v {
 }
 
 function perl_sub_size {
-	for sub in $(grep ^sub $1 | cut -d\  -f2); do len=`get-perl-function $sub $1 | wl`; printf "%d %s:%s\n" $len $1 $sub; done
+	for sub in $(grep ^sub $1 | cut -d\  -f2); do len=`perl_get_sub $sub $1 | wl`; printf "%d %s:%s\n" $len $1 $sub; done
 }
 
 # given a file with categories and tabbed-in items in those categories, count the number of items in each category
 function count_categories {
 	perl -nE'if($seq = /^\w/ .. /^$/) { if ($seq == 1){ $total=0; print } elsif ($seq =~ /E/){say $total} else {$total++} }' $1
+}
+
+# usage: perl_ppi_dump <perlfile>
+function perl_ppi_dump {
+	perl -MAthena::Lib -MPPI::Document -MPPI::Dumper -E'$m = PPI::Document->new($ARGV[0]); $d = PPI::Dumper->new($m); $d->print' $1
 }
 

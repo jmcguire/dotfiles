@@ -1,4 +1,4 @@
 #!/usr/bin/perl -n
 BEGIN { $subname = shift @ARGV; }
-print if /^sub \s+ $subname/x .. /^}/
+print if /^sub \s+ \Q$subname\E\b/x .. /^}/
 

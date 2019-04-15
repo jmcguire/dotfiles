@@ -66,7 +66,7 @@ alias remove_wide_characters="perl -pe's/[^\x00-\x7f]//g;'" # for grepping: unic
 ## list of all perl libraries in use, starting from current folder, ordered by most used. parameter: none, uses current directory and children
 alias perl_libraries="find . -name '*pm' -print | grep -v _Test.pm | xargs egrep '^\s*(require|use)\b' | grep -v constant | cut -d: -f2- | sed 's/^[ \t]*//' | sed 's/ qw.*$/;/g' | perl -ne'print unless /use [a-z]/' | sort | uniq -c | sort -rn"
 ## show the broad structure of a perl file, parameter: filename
-alias perl_code_structure="perl -ne'print if /^[^#]*(?<!\\$)\b(sub|if|elsif|else|for|foreach|while|unless|until|do|next|last|redo|continue|given|when|goto|return|die|try|catch)\b/'"
+alias perl_code_structure="perl -ne'print if /^[^#]*(?<!\\$)\b(sub|if|elsif|else|for|foreach|while|unless|until|do|next|last|redo|continue|given|when|goto|return|die|try|catch|return)\b/'"
 ## find subs greater than 100 lines, parameter: filename
 alias perl_find_long_subs='perl -nE'\''BEGIN{$a=1 if @ARGV>1}if(/^sub (\w+)\b/){$subs{($a?"${ARGV}::":"").$sub}=$c if $c>=100;$sub=$1;$c=0}else{$c++}END{say "$subs{$_}\t$_"foreach sort keys %subs}'\'''
 alias update_perl='curl -L http://xrl.us/installperlosx | bash'
@@ -76,4 +76,5 @@ alias update_perl='curl -L http://xrl.us/installperlosx | bash'
 alias sumup="awk '{total = total + \$1} END {print total}'"
 alias to_json="p1 -MJSON::XS -MData::Dumper -nE'print Dumper JSON::XS::decode_json(\$_)'"
 alias random_user="users | sed -r -e 's/ /\n/g' | sort -u | shuf -n 1"
+alias myweather="curl wttr.in/NATICK"
 

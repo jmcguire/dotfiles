@@ -16,12 +16,14 @@ fi
 
 export HISTCONTROL=erasedups
 # Automatically highlight matches with grep
-export GREP_OPTIONS=--color=auto
+export GREP_OPTIONS=--color=always
+export LESS=-r
 export PERL_UNICODE=AS
 export LC_COLLATE="C"
 
 #export PS1="\[\033[G\][\h \w] $ "
-export PS1="[\h \w] $ "
+#export PS1="[\h \w] $ "
+export PS1="\[\e[31;1m\]\u@\h\[\e[m\]:\[\e[32;1m\]\w\[\e[0m\] > "
 export EDITOR=vim
 
 export PATH=$HOME/bin:$HOME/perl5/bin/:$PATH

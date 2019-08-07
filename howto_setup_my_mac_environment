@@ -43,6 +43,7 @@ get basic utilities:
   brew install lynx
   brew install pandoc
   brew cask install quicklook-json
+  brew install jrnl
 
 make the mac better:
 

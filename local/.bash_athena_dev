@@ -164,8 +164,11 @@ function db {
 }
 
 
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
 # these must be last
 source ~/.bashrc
 source ~/bin/.jump.sh
 #branch prod
 #export MASTER_ROOT_INSTANCE=PTEST1
+

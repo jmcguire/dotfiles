@@ -38,7 +38,7 @@ export ISDEVELOPMENT='Y'
 
 shopt -s globstar
 
-export JIRAPROJECT='EIP'
+export JIRAPROJECT='ISMS'
 export VERIFY_CODE_OPTIONS="--strict"
 export PERL5LIB="$PERL5LIB:$HOME/lib/perl5"
 
@@ -134,14 +134,14 @@ function turn_sql_desc_to_spec {
 	' $1
 }
 
-# switch branch to the given branch in EIP
+# switch branch to the given branch in ISMS
 # e.g. sb misc_bugs
 function scode {
-	switch_branch --switch code --to //depot/anet/features/EIP/$1/...
+	switch_branch --switch code --to //depot/anet/features/isms/$1/...
 	branch code
 }
 function sreview {
-	switch_branch --switch review --to //depot/anet/features/EIP/$1/...
+	switch_branch --switch review --to //depot/anet/features/isms/$1/...
 	branch review
 }
 
@@ -164,11 +164,8 @@ function db {
 }
 
 
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
 # these must be last
 source ~/.bashrc
 source ~/bin/.jump.sh
 #branch prod
 #export MASTER_ROOT_INSTANCE=PTEST1
-

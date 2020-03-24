@@ -83,3 +83,7 @@ function perl_ppi_dump {
 	perl -MAthena::Lib -MPPI::Document -MPPI::Dumper -E'$m = PPI::Document->new($ARGV[0]); $d = PPI::Dumper->new($m); $d->print' $1
 }
 
+function mkc {
+    mkdir $1 && cd "$_"
+}
+

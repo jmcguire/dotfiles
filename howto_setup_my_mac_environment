@@ -62,3 +62,7 @@ make the mac better:
 
   # add this line to the bottom of /etc/ssh/ssh_config
   ServerAliveInterval 240
+
+  # copy the message of the day
+  cp ~/.dotfiles/motd /etc/motd
+

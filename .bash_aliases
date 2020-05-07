@@ -37,12 +37,44 @@ alias more="less"
 #export http_proxy="http://1234:linux@proxy:8080"
 
 ## system debugging help
+
 alias dusk="du -sk * 2>/dev/null | sort -rn"
 alias myps="ps fux"
 alias dirsize="du -h * | perl -ne'print if m,\t[^/]+$,'"
 alias all_permissions="ls -lR . | awk '{print \$1}' | sort -u | grep -v total | grep -v '^\\./'"
 alias list_extensions='ls | perl -nE'\''next unless /\.([^.]*)$/; print $1'\'' | sort | uniq -c | sort -rn'
 alias find_files="find . -type f -print"
+
+# srvi - for editing a file as root maintaining vi customizations
+if have sr; then
+    alias srvi='sr env HOME="$HOME" $EDITOR'
+elif have sudo; then
+    alias srvi='sudo env HOME="$HOME" $EDITOR'
+fi
+
+# sr - for becoming root while maintaining shell customizations.
+if have sr; then
+    flags=
+    sr=$( which sr 2> /dev/null )
+    if [ -L "$sr" ]; then
+        if have readlink; then
+            sr=$( readlink -f "$sr" )
+        elif have realpath; then
+            sr=$( realpath "$sr" )
+        elif have perl; then
+            sr=$( perl -le '
+                use Cwd;
+                print Cwd::abs_path(@ARGV);
+            ' -- "$sr" )
+        fi
+        [ "${sr##*/}" = sudo ] && flags="-E"
+    fi
+    alias srsu="sr $flags env $SHELL --rcfile $HOME/.bash_profile"
+elif have sudo; then
+    alias srsu="sudo -E env $SHELL --rcfile $HOME/.bash_profile"
+elif have su; then
+    alias srsu="su -m root --rcfile $HOME/.bash_profile"
+fi
 
 ## software debugging help
 
@@ -51,7 +83,6 @@ alias long_lines="perl -nle's/.{0,80}//; if (\$_) { print qq{\$.: \$_} }'"
 alias crongrep="crontab -l | grep"
 alias tabs_to_spaces="perl -i -pe's/\t/    /g'"
 alias spaces_to_tabs="perl -i -pe's/\G[ ]{4}/\t/g'"
-## find 100+ line perl subroutines. note, does not work with Moose stuff.
 ## print line number and color code
 alias list_colors_in_css="grep -n color \$1 | perl -F'\s|:' -anle'/(#[\da-fA-F]{3,6})/; print qq{\$F[0] \$1}' "
 alias git_branch_changes='for k in `git branch | perl -pe s/^..//`; do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k -- | head -n 1`\\t$k; done | sort -r'

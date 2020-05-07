@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 ## coding analysis
 function lines_coded {
     perl -ne'print unless /^\s*$/ || /^\s*(?:#|\/\*|\*)/' $* | wl
@@ -86,4 +87,11 @@ function perl_ppi_dump {
 function mkc {
     mkdir $1 && cd "$_"
 }
+
+# settitle "window terminal title"
+settitle()
+{
+    printf "\e]2;$*\a\e]1;$*\a\e]0;$*\a";
+}
+
 

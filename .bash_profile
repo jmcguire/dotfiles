@@ -1,4 +1,11 @@
 #!/bin/bash
+ 
+# two basic commands, used everywhere in my setup
+
+unalias quietly 2> /dev/null
+quietly() { "$@" > /dev/null 2>&1; }
+quietly unalias have
+have() { type "$@" > /dev/null 2>&1; } # for use in a bash IF statement
 
 # Get the aliases and functions
 
@@ -20,11 +27,11 @@ export GREP_OPTIONS=--color=always
 export LESS=-r
 export PERL_UNICODE=AS
 export LC_COLLATE="C"
-
 #export PS1="\[\033[G\][\h \w] $ "
 #export PS1="[\h \w] $ "
 export PS1="\[\e[31;1m\]\u@\h\[\e[m\]:\[\e[32;1m\]\w\[\e[0m\] > "
 export EDITOR=vim
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 
 export PATH=$HOME/bin:$HOME/perl5/bin/:$PATH
 
@@ -39,6 +46,10 @@ set -o ignoreeof
 shopt -s no_empty_cmd_completion
 shopt -s lithist
 #shopt -s globstar
+
+if [ -f ~/.bashrc ]; then
+  . ~/.bashrc
+fi
 
 ## source my local/custom definitions
 ## (this should always be last)

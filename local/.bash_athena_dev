@@ -38,7 +38,7 @@ export ISDEVELOPMENT='Y'
 
 shopt -s globstar
 
-export JIRAPROJECT='EIP'
+export JIRAPROJECT='ISMS'
 export VERIFY_CODE_OPTIONS="--strict"
 export PERL5LIB="$PERL5LIB:$HOME/lib/perl5"
 
@@ -52,12 +52,14 @@ alias myglimpse="aglimpse --build prod --nowiki"
 alias start_worker="nohup perl \$ATHENA_HOME/scripts/app/platform/worker.pl --start --reset --nodaemon 2>&1 >>$HOME/logs/worker_${HOSTNAME:0:6} &"
 alias stop_worker="myps | grep worker | awk '{print \$2}' | while read p; do kill -2 \$p; done;"
 alias start_scalemonitor="nohup perl \$ATHENA_HOME/scripts/app/platform/scale_monitor.pl --start --nodaemon --config=$HOME/.scalemonitor.conf 2>&1 >>$HOME/logs/scalemonitor_${HOSTNAME:0:6} 2>&1 &"
+alias stop_scalemonitor="myps | grep scale_monitor | awk '{print \$2}' | while read p; do kill -2 \$p; done;"
 alias ha="harr dev backend feature=\$BUILDNAME"
 alias unha="ps -eo args | grep $USER | grep httpd | cut -d. -f1 | cut -d\/ -f6 | uniq | xargs unharr"
 alias python3="/home/akopp/local/bin/python3"
 alias start_sublime_server="python3 /home/akopp/DevDaemon/devdaemon.py start"
 alias goscribe="cd /mnt/weblogs/scribe/import_arbiter_error_reporting/"
-alias tap_test="$ATHENA_HOME/../athenax/release/athenax perl-test athena"
+alias tap_test="$ATHENA_HOME/../athenax/release/athenax perl-test "
+alias tests_needed='perl -MAthena::Lib -MAthena::Util::Database -MSubmitFiles -E'\''@files = `p4 opened`; s/#.*\n// foreach @files; *SubmitFiles::_MaybeTimePrompt = sub{}; SubmitFiles::CheckTestFiles({FILESTOCHECK => \@files})'\'
 
 function most_used_no_critic {
 	myglimpse "no critic " | perl -nE'next unless ($ws = /no critic (.+)$/); $ws = $1; while ($ws =~ /(?:[A-Z][\w:]+::)?([A-Z][\w]+)/g) {say $1}' | sort | uniq -c | sort -rn
@@ -132,14 +134,14 @@ function turn_sql_desc_to_spec {
 	' $1
 }
 
-# switch branch to the given branch in EIP
+# switch branch to the given branch in ISMS
 # e.g. sb misc_bugs
 function scode {
-	switch_branch --switch code --to //depot/anet/features/EIP/$1/...
+	switch_branch --switch code --to //depot/anet/features/isms/$1/...
 	branch code
 }
 function sreview {
-	switch_branch --switch review --to //depot/anet/features/EIP/$1/...
+	switch_branch --switch review --to //depot/anet/features/isms/$1/...
 	branch review
 }
 
@@ -155,6 +157,10 @@ function org {
 # see what i have running in every server
 function whats_running_on_every_server {
 	for server in {00..18}; do ssh -t dev1$server 'ps fux'; done
+}
+
+function db {
+	export MASTER_ROOT_INSTANCE=$1
 }
 
 

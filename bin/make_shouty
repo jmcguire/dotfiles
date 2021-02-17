@@ -1,0 +1,40 @@
+for file do
+
+	if [ ! -f $file ]; then
+		echo "$file is is not a file"
+		continue
+	fi
+
+	alreadyshouty=`grep "###jmcg" $file | wc -l | awk '{ print $1 }'`
+	if [ $alreadyshouty -gt 0 ]; then
+		echo "$file is already shouty"
+		continue
+	fi
+
+	echo "making $file shouty"
+
+	# breakage notes:
+	# - this relies on well-formatted perl code, which means probably anything that passes verify_code
+	# - more specifically, this will break if indentation isn't controlled or if subroutines braces aren't cuddled
+	perl -i -pe'
+		$sq = "\047"; # the single quote character
+		$d = "\$";
+		# flip flop operator to find all subroutines, but avoiding ClassDefinitions (which arent really subroutines)
+		if ( $sequence = m|^sub\s+(?!ClassDefinition).+$| ..  m|^}\s*$| ) {
+
+			# print the warning after the sub begins, and increment the depth
+			# ( optional addition: localtime() )
+			print qq{warn +("  " x \$ENV{JMCGDEPTH}++) . (caller(0))[3] . " called by " . (caller(1))[3] . "\\n"; ###jmcg\n}
+				if ($sequence == 2);
+
+			# decrement the depth anywhere theres a return
+			# we do an "&&" is to handle constructs like "return if foo()"
+			print qq{\$ENV{JMCGDEPTH}-- && ###jmcg\n}
+				if (/^[^#"$sq$d]*\breturn\b/);
+
+		}
+	' $file
+
+done
+
+# remove shouty with: perl -i -ne'print unless /###jmcg/' FILENAME

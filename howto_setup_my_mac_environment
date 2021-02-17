@@ -2,6 +2,8 @@ install my prefered terminal:
 
   https://www.iterm2.com/
 
+  (and save my tab+colors with Save Window Arrangement)
+
 get command-line tools:
 
   xcode-select --install
@@ -11,10 +13,17 @@ setup github ssh keys:
   ssh-keygen -t rsa -b 4096 -C "jm@landedstar.com"
   eval "$(ssh-agent -s)"
   ssh-add .ssh/id_rsa
-  pbcopy <.ssh/id_rsa.pub
-  (add to github.com/settings/ssh)
-  ssh -T git@github.com
-  (if that fails: ssh -T -p 443 git@ssh.github.com )
+
+  to add keys to github:
+
+    pbcopy <.ssh/id_rsa.pub
+    (add to github.com/settings/ssh)
+    ssh -T git@github.com
+    (if that fails: ssh -T -p 443 git@ssh.github.com )
+
+  to add keys to a server you go into
+
+    ssh-copy-id dev10x
 
 setup dotfiles:
 
@@ -33,9 +42,27 @@ get basic utilities:
   sudo gem install sass
   brew install lynx
   brew install pandoc
+  brew cask install quicklook-json
+  brew install jrnl
 
 make the mac better:
 
   # make plaintext the default for texteditor
   defaults write com.apple.TextEdit RichText -int 0
+
+  # make home and end keys go to start/end of line instead of start/end of page
+  mkdir -p ~/Library/KeyBindings
+  cat >~/Library/KeyBindings/DefaultKeyBinding.dict
+  {
+      "\UF729"  = moveToBeginningOfLine:; // home
+      "\UF72B"  = moveToEndOfLine:; // end
+      "$\UF729" = moveToBeginningOfLineAndModifySelection:; // shift-home
+      "$\UF72B" = moveToEndOfLineAndModifySelection:; // shift-end
+  }
+
+  # add this line to the bottom of /etc/ssh/ssh_config
+  ServerAliveInterval 240
+
+  # copy the message of the day
+  cp ~/.dotfiles/motd /etc/motd
 

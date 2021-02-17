@@ -1,0 +1,69 @@
+#!/bin/bash
+
+locate_args=`echo "$@" | sed 's|::|/|g'`
+locate_args_exist=`echo $locate_args | sed 's|\s\+|\n|g' | wc -l`
+
+usage_message="
+Usage: $0 [arguments to pass through to \"locate\"]
+Examples:
+	$0 Athena/AthenaDate
+	$0 -r 2013071._dml -r 2013070._dml
+	$0 -i ClaimAlarm
+"
+
+if [ "$locate_args" == "" -o $locate_args_exist == "0" ]; then
+	echo "$usage_message"
+	exit
+fi
+
+filepaths=`locate --ignore-case $locate_args | sed 's|^/usr/local/athena/prod/||' | sed 's|^/usr/local/athena/||' | grep "\."`
+num_results=`echo $filepaths | wc -w`
+filepath_to_open=""
+
+if [ $num_results == "0" ]; then
+
+	echo "No files found."
+	exit
+
+elif [ $num_results == "1" ]; then
+
+	for path in $filepaths; do
+		filepath=$ATHENA_HOME/$path
+		if [ -f $filepath ]; then
+			filepath_to_open=$filepath
+			break
+		elif [ -f $P4_HOME/$path ]; then
+			filepath_to_open=$P4_HOME/$path
+			break
+		fi
+	done
+
+else
+
+	echo "$num_results files located:"
+	echo "$filepaths" | awk '{ printf "\t[%d]\t%s\n", NR, $0 }'
+	echo -n "Open which one? "
+	read filepath_linenum
+
+	if [ ! $filepath_linenum ]; then
+		exit
+	elif [[ ! $filepath_linenum =~ ^[0-9]+$ || $filepath_linenum -gt $num_results || $filepath_linenum -lt 1 ]]; then
+		echo "Please enter an integer between 1 and $num_results."
+		exit
+	fi
+
+	filepath=`echo "$filepaths" | sed -n $filepath_linenum'p'`
+	if [ -f $ATHENA_HOME/$filepath ]; then
+		filepath_to_open=$ATHENA_HOME/$filepath
+	elif [ -f $P4_HOME/$filepath ]; then
+		filepath_to_open=$P4_HOME/$filepath
+	fi
+fi
+
+if [ "$filepath_to_open" != "" ]; then
+	echo -e "\n$filepath_to_open"
+	$EDITOR $filepath_to_open
+else
+	echo "Couldn't find a file to open."
+fi
+

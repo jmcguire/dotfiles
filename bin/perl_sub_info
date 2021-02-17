@@ -1,0 +1,43 @@
+#!/usr/local/bin/perl -nl
+
+BEGIN {
+  $curr = "(MAIN)";
+}
+
+if (/^=(?!cut)\w/) {
+  $comment++;
+} elsif (/^=cut/) {
+  $comment=0;
+}
+
+next if $comment;
+
+if (/^sub\s+(\w+)(?:\s+{)?\s*$/) {
+  $curr = $1;
+  $all{$curr} = {};
+} elsif (/^}/) {
+  $curr = "(MAIN)";
+} elsif (/^\s*#/) {
+  ;
+} else {
+  while (/\b(\w+)\b/g) {
+    $all{$curr}->{$1}++;
+  }
+}
+
+END {
+  foreach my $sub (sort keys %all) {
+    #print $sub unless grep {$all{$_}->{$sub}} keys %all; next; # see subs that are not used in this file.
+
+	# normal
+    #print $sub;
+    #print "\t$_" foreach sort grep {defined $all{$_}} keys %{$all{$sub}} ;
+
+	# create a DOT formatted file
+    print "$sub -> $_" foreach sort grep {defined $all{$_}} keys %{$all{$sub}} ;
+  }
+}
+
+## or in one-line format...
+## perl -nle'BEGIN{$curr = "(MAIN)"} if (/^=(?!cut)\w/) {$comment++} elsif (/^=cut/) {$comment=0}; next if $comment; if (/^sub\s+(\w+)(?:\s+{)?\s*$/) {$curr = $1; $all{$curr} = {}} elsif (/^}/) { $curr = "(MAIN)" } else {while (/\b(\w+)\b/g) { $all{$curr}->{$1}++ }} END{foreach my $sub (sort keys %all) { print $sub; print "\t$_" foreach sort grep {defined $all{$_}} keys %{$all{$sub}} }} '
+

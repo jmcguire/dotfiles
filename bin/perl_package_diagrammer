@@ -1,0 +1,55 @@
+#!/usr/local/bin/perl -n
+
+# note the -n up there. we're iterating over a file
+
+use feature 'say';
+use File::Temp qw(tempfile);
+use constant TYPE => 'jpg'; # also try pdf
+use constant GRAPH => 'circo'; # also try dot, neato, fdp, or more
+
+# to begin with, we're not in a subroutine
+BEGIN {
+  $current_sub = "MAIN";
+}
+
+# ignore block comments
+if (/^=(?!cut)\w/) {
+  $comment++;
+} elsif (/^=cut/) {
+  $comment=0;
+}
+next if $comment;
+
+# an ad-hoc perl parser
+if (/^sub\s+(\w+)(?:\s+{)?\s*$/) { # starting a subroutine
+  $current_sub = $1;
+  $all{$current_sub} = {};
+} elsif (/^}/) { # no longer in a subroutine
+  $current_sub = "MAIN";
+} elsif (/^\s*#/) { # in a comment
+  ;
+} else {
+  while (/\b(\w+)\b/g) { # look for all perl-ish name things
+    $all{$current_sub}->{$1}++;
+  }
+}
+
+# create a DOT formatted file
+END {
+  # write to a temp file
+  my ($fh, $filename) = tempfile();
+  say $fh "digraph thing {";
+  foreach my $sub (sort keys %all) {
+    # we want to print all 
+    say $fh "  $sub -> $_;" foreach sort grep {defined $all{$_}} keys %{$all{$sub}} ;
+  }
+  say $fh "}";
+
+  # run that file through "dot"
+  # to learn more about dot, https://graphviz.gitlab.io/documentation/
+  `dot -T@{[TYPE]} -K@{[GRAPH]} $filename -o output.@{[TYPE]}`;
+  say "file created: output.@{[TYPE]}";
+  #say $filename
+  unlink $filename;
+}
+

@@ -65,3 +65,6 @@ let g:vim_markdown_conceal = 0
 " Plug 'ssh://git@bitbucket.athenahealth.com:7999/dt/athena-vim.git', { 'branch': 'release' }
 " call plug#end()
 
+syntax match nonascii "[^\x00-\x7F]"
+highlight nonascii guibg=Red ctermbg=2
+

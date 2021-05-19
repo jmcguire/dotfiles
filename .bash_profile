@@ -29,6 +29,7 @@ export PERL_UNICODE=AS
 export LC_COLLATE="C"
 #export PS1="\[\033[G\][\h \w] $ "
 #export PS1="[\h \w] $ "
+#export PS1="\e[0;35m[\e[0;32m\h \e[0;36m\w\e[0;35m] $\e[m "
 export PS1="\[\e[31;1m\]\u@\h\[\e[m\]:\[\e[32;1m\]\w\[\e[0m\] > "
 export EDITOR=vim
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"

@@ -46,6 +46,7 @@ set -o ignoreeof
 shopt -s no_empty_cmd_completion
 shopt -s lithist
 #shopt -s globstar
+shopt -s expand_aliases
 
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc

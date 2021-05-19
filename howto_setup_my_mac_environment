@@ -66,3 +66,4 @@ make the mac better:
   # copy the message of the day
   cp ~/.dotfiles/motd /etc/motd
 
+  brew install fortune

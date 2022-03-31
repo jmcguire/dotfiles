@@ -4,6 +4,14 @@ install my prefered terminal:
 
   (and save my tab+colors with Save Window Arrangement)
 
+  install dracula theme for iterm
+
+  https://draculatheme.com/iterm
+
+change preferred shell to bash
+
+  chsh -s /bin/bash
+
 get command-line tools:
 
   xcode-select --install
@@ -42,7 +50,7 @@ get basic utilities:
   sudo gem install sass
   brew install lynx
   brew install pandoc
-  brew cask install quicklook-json
+  brew install quicklook-json
   brew install jrnl
 
 make the mac better:

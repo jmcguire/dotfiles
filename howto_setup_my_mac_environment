@@ -8,9 +8,9 @@ install my prefered terminal:
 
   https://draculatheme.com/iterm
 
-change preferred shell to bash
+change preferred shell to zsh
 
-  chsh -s /bin/bash
+  chsh -s /bin/zsh
 
 get command-line tools:
 
@@ -32,6 +32,10 @@ setup github ssh keys:
   to add keys to a server you go into
 
     ssh-copy-id dev10x
+
+install oh-my-zsh
+
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 setup dotfiles:
 

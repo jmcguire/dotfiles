@@ -27,7 +27,6 @@ let loaded_matchparen = 1
 
 set bg=dark
 syntax on
-colorscheme elflord
 
 set wildmenu
 
@@ -67,4 +66,8 @@ let g:vim_markdown_conceal = 0
 
 syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii guibg=Red ctermbg=2
+
+packadd! dracula
+syntax enable
+colorscheme dracula
 

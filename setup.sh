@@ -8,7 +8,7 @@ if [ -d ~/dotfiles ]; then
   mv ~/dotfiles ~/.dotfiles
 fi
 
-## save our current settings
+## save our current bash_profile
 if [ -f ~/.bash_profile ]; then
   echo "saving .bash_profile to .bash_local"
   echo "## copied from old .bash_profile" >>~/.bash_local
@@ -19,8 +19,16 @@ else
   touch ~/.bash_local
 fi
 
+## backup our current zshrc
+if [ -f ~/.zshrc ]; then
+  echo "saving .zshrc to .zshrc_old"
+  echo "## copied from old .zshrc" >>~/.zshrc_old
+  cat ~/.zshrc >>~/.zshrc_old
+  rm ~/.zshrc
+fi
+
 ## link my dotfiles
-for filename in .bash_profile .bash_aliases .bash_fns .vimrc .vim/ .gitconfig; do
+for filename in .bash_profile .bash_aliases .bash_fns .vimrc .vim/ .gitconfig .zshrc; do
   if [ ! -e ~/$filename ]; then
     echo "linking dotfile $filename"
     ln -s ~/.dotfiles/$filename ~/$filename
@@ -35,6 +43,14 @@ if [ ! -e ~/.gitignore ]; then
   ln -s ~/.dotfiles/.my.gitignore ~/.gitignore
 else
   echo "dotfile .gitignore already exists, skipping"
+fi
+
+## install justin theme in oh-my-zsh
+if [ -e ~/.oh-my-zsh/themes/ ]; then
+  echo "linking justin theme in .oh-my-zsh/themes/"
+  ln -s ~/.dotfiles/justin.zsh-theme ~/.oh-my-zsh/themes/
+else
+  echo "oh-my-zsh themes dir missing. is oh-my-zsh installed?"
 fi
 
 ## setup the .bashrc file

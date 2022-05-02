@@ -22,6 +22,7 @@ fi
 ##
 
 export HISTCONTROL=erasedups
+export HISTIGNORE='jrnl *'
 # Automatically highlight matches with grep
 export GREP_OPTIONS=--color=always
 export LESS=-r
@@ -30,7 +31,8 @@ export LC_COLLATE="C"
 #export PS1="\[\033[G\][\h \w] $ "
 #export PS1="[\h \w] $ "
 #export PS1="\e[0;35m[\e[0;32m\h \e[0;36m\w\e[0;35m] $\e[m "
-export PS1="\[\e[31;1m\]\u@\h\[\e[m\]:\[\e[32;1m\]\w\[\e[0m\] > "
+#export PS1="\[\e[31;1m\]\u@\h\[\e[m\]:\[\e[32;1m\]\w\[\e[0m\] > "
+export PS1='\[\e[31;1m\]\u@\h\[\e[m\]:\[\e[32;1m\]\w\[\e[0m\] $(__git_ps1 "(%s)") > '
 export EDITOR=vim
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 
@@ -51,6 +53,14 @@ shopt -s expand_aliases
 
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc
+fi
+
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+
+if [ -f ~/.git-prompt.sh ]; then
+  . ~/.git-prompt.sh
 fi
 
 ## source my local/custom definitions

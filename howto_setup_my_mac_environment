@@ -56,6 +56,7 @@ get basic utilities:
   brew install pandoc
   brew install quicklook-json
   brew install jrnl
+  brew install bash-completion
 
 make the mac better:
 

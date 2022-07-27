@@ -1,4 +1,5 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=usr/local/go/bin::$PATH
 export ZSH="$HOME/.oh-my-zsh" # Path to your oh-my-zsh installation.
 
 ZSH_THEME="justin"
@@ -29,3 +30,16 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_REDUCE_BLANKS
 
 
+# two basic commands, used everywhere in my setup
+
+unalias quietly 2>/dev/null
+function quietly() { "$@" > /dev/null 2>&1; }
+quietly unalias have
+function have() { type "$@" > /dev/null 2>&1; } # for use in a bash IF statement
+
+# Get the aliases, which luckily are the same format in bash as zsh
+
+if [[ -f ~/.sh_aliases ]]
+then
+  . ~/.sh_aliases
+fi

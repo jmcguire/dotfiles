@@ -9,8 +9,8 @@ have() { type "$@" > /dev/null 2>&1; } # for use in a bash IF statement
 
 # Get the aliases and functions
 
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
+if [ -f ~/.sh_aliases ]; then
+  . ~/.sh_aliases
 fi
 
 if [ -f ~/.bash_fns ]; then

@@ -28,7 +28,7 @@ if [ -f ~/.zshrc ]; then
 fi
 
 ## link my dotfiles
-for filename in .bash_profile .bash_aliases .bash_fns .vimrc .vim/ .gitconfig .zshrc; do
+for filename in .bash_profile .sh_aliases .bash_fns .vimrc .vim/ .gitconfig .zshrc; do
   if [ ! -e ~/$filename ]; then
     echo "linking dotfile $filename"
     ln -s ~/.dotfiles/$filename ~/$filename

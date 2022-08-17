@@ -81,3 +81,6 @@ for filename in get-perl-function intersection perl-sub-info pm_info.pl rename.p
   fi
 done
 
+## make italics work
+tic ~/.dotfiles/xterm-256color-italic.terminfo
+

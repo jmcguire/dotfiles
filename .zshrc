@@ -10,6 +10,7 @@ export COMPLETION_WAITING_DOTS="true" # display red dots whilst waiting for comp
 export HIST_STAMPS="yyyy-mm-dd"
 export HISTORY_IGNORE="(jrnl *|jrnl)"
 # DISABLE_MAGIC_FUNCTIONS="true" #if pasting URLs and other text is messed up.
+export TERM=xterm-256color-italic
 
 zstyle ':omz:update' mode reminder  # remind me when it's time to update
 
@@ -43,3 +44,11 @@ if [[ -f ~/.sh_aliases ]]
 then
   . ~/.sh_aliases
 fi
+
+quick_weather
+
+PATH="/Users/justin/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/justin/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/justin/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/justin/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/justin/perl5"; export PERL_MM_OPT;

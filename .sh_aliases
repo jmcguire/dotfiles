@@ -101,5 +101,6 @@ alias update_perl='curl -L http://xrl.us/installperlosx | bash'
 alias sumup="awk '{total = total + \$1} END {print total}'"
 alias to_json="p1 -MJSON::XS -MData::Dumper -nE'print Dumper JSON::XS::decode_json(\$_)'"
 alias random_user="users | sed -r -e 's/ /\n/g' | sort -u | shuf -n 1"
-alias myweather="curl wttr.in/NATICK"
+alias weather="curl wttr.in/NATICK"
+alias quick_weather="curl 'wttr.in/NATICK?format=%l:%c%t:%f:%m\n'"
 

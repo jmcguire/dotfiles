@@ -23,9 +23,7 @@ source $ZSH/oh-my-zsh.sh
 export LANG=en_US.UTF-8
 export EDITOR='vim'
 
-setopt APPEND_HISTORY
 setopt GLOB_COMPLETE
-setopt SHARE_HISTORY
 setopt APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_REDUCE_BLANKS
@@ -46,4 +44,11 @@ then
 fi
 
 # quick_weather # this can be slow
+
+
+# cargo completiong
+# should be moved to a local .sh file
+# source $(rustc --print sysroot)/share/zsh/site-functions/_cargo
+
+
 

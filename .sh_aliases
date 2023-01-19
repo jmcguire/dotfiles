@@ -11,7 +11,8 @@ alias l="ls -lAFhG"
 alias l1="ls -1"
 alias lw="ls -A| wl"
 alias cx="chmod ug+x"
-alias findx="find . -path '*.svn*' -prune -o -type f -print0 | xargs -0 grep -i -E "
+# 24 filenames on a line, 4 simultaneous processes
+alias findx="find . -path '*.svn*' -prune -o -type f -print0 | xargs -0 -n24 -P4 grep -i -E "
 alias grepf="find . -path '*.svn*' -prune -o -type f -print | grep -i "
 alias grepp="grep -P " ## perl
 alias rest="cd;clear"
@@ -80,11 +81,12 @@ alias spaces_to_tabs="perl -i -pe's/\G[ ]{4}/\t/g'"
 ## print line number and color code
 alias list_colors_in_css="grep -n color \$1 | perl -F'\s|:' -anle'/(#[\da-fA-F]{3,6})/; print qq{\$F[0] \$1}' "
 alias git_branch_changes='for k in `git branch | perl -pe s/^..//`; do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset" $k -- | head -n 1`\\t$k; done | sort -r'
-alias start_server="python -m SimpleHTTPServer 8000"
+alias start_server="python -m http.server 8000"
 alias py_compile="python -m py_compile"
 # get list of objects and functions in a python file
 alias python_structure="perl -ne'print if /\\b(?<!:)(class|def)\\s/'"
 alias remove_wide_characters="perl -pe's/[^\x00-\x7f]//g;'" # for grepping: unicode, utf8, utf-8
+alias git_lines_coded="git diff | egrep '^(\+|-)' | wc -l"
 
 ## perl
 

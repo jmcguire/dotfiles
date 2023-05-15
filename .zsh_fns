@@ -1,0 +1,8 @@
+lines_coded () {
+    perl -ne'print unless /^\s*$/ || /^\s*(?:#|\/\*|\*)/' $* | wl
+}
+
+lines_commented () {
+    perl -ne'print if /^\s*(?:#|\/\*|\*)/' $* | wl
+}
+

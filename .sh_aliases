@@ -86,7 +86,7 @@ alias py_compile="python -m py_compile"
 # get list of objects and functions in a python file
 alias python_structure="perl -ne'print if /\\b(?<!:)(class|def)\\s/'"
 alias remove_wide_characters="perl -pe's/[^\x00-\x7f]//g;'" # for grepping: unicode, utf8, utf-8
-alias git_lines_coded="git diff | egrep '^(\+|-)' | wc -l"
+alias git_lines_coded="git diff -- ':!*.json' | egrep '^(\+|-)' | wc -l"
 
 ## perl
 
@@ -101,8 +101,9 @@ alias update_perl='curl -L http://xrl.us/installperlosx | bash'
 ## misc fun
 
 alias sumup="awk '{total = total + \$1} END {print total}'"
-alias to_json="p1 -MJSON::XS -MData::Dumper -nE'print Dumper JSON::XS::decode_json(\$_)'"
 alias random_user="users | sed -r -e 's/ /\n/g' | sort -u | shuf -n 1"
 alias weather="curl wttr.in/NATICK"
 alias quick_weather="curl 'wttr.in/NATICK?format=%l:%c%t:%f:%m\n'"
+alias readm=mdless
+
 

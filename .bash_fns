@@ -34,13 +34,9 @@ add_spacer_to_dock () {
   killall Dock
 }
 
-## read markdown
-readm () {
-  pandoc $1 | lynx -stdin
-}
-
 ## see the structure of a json file
 ## e.g. $ json_structure input.json
+## (delete this because I just use JQ now?)
 json_structure() {
     perl -ne'if(/^[\W_]+$/ or /"\w+" \s* : \s* [\[{]/x){ print }' $1
 }

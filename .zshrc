@@ -14,7 +14,7 @@ export TERM=xterm-256color-italic
 
 zstyle ':omz:update' mode reminder  # remind me when it's time to update
 
-plugins=(git colored-man-pages colorize)
+plugins=(git colored-man-pages colorize virtualenv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -42,6 +42,12 @@ if [[ -f ~/.sh_aliases ]]
 then
   . ~/.sh_aliases
 fi
+
+# for putting the python venv into a PS1
+function virtualenv_info {
+    #[ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
+    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV` `$VIRTUAL_ENV/bin/python --version | sed 's,Python ,,'`') '
+}
 
 # quick_weather # this can be slow
 

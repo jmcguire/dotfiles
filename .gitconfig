@@ -25,6 +25,9 @@
 [init]
   defaultBranch = main
 
+# sometimes causes trouble with cargo, when used a certain way, like with bazel
 [url "git@github.com:"]
   insteadOf = https://github.com/
 
+[net]
+  git-fetch-with-cli = true

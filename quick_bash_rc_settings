@@ -1,0 +1,8 @@
+# add these to a .bash_profile to quickly feel at home
+alias ..="cd .."
+alias ...="cd ../.."
+alias l="ls -lAFhG"
+export LC_COLLATE="C"
+export PS1='\[\e[31;1m\]\u@\h\[\e[m\]:\[\e[32;1m\]\w\[\e[0m\]> '
+export TERM=vt100
+

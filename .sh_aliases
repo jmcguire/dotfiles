@@ -5,7 +5,7 @@
 alias ..="cd .."
 alias ...="cd ../.."
 alias wl="wc -l"
-alias l="ls -lAFhG"
+alias l="ls -lAFhGo"
 #alias l="ls -lAF --group-directories-first --human-readable"
 #l() { ls -lAFhG $* | grep -ve '\.\<\(DS_Store\|localized\)\>'; }
 alias l1="ls -1"

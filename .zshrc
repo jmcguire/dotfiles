@@ -37,10 +37,15 @@ quietly unalias have
 function have() { type "$@" > /dev/null 2>&1; } # for use in a bash IF statement
 
 # Get the aliases, which luckily are the same format in bash as zsh
-
 if [[ -f ~/.sh_aliases ]]
 then
   . ~/.sh_aliases
+fi
+
+# and the functions
+if [[ -f ~/.zsh_fns ]]
+then
+  . ~/.zsh_fns
 fi
 
 # for putting the python venv into a PS1
@@ -55,6 +60,12 @@ function virtualenv_info {
 # cargo completiong
 # should be moved to a local .sh file
 # source $(rustc --print sysroot)/share/zsh/site-functions/_cargo
+
+# source my local/custom definitions
+# (this should always be last)
+if [ -f ~/.zshrc_local ]; then
+  . ~/.zshrc_local
+fi
 
 
 

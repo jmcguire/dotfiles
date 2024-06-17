@@ -19,16 +19,16 @@ else
   touch ~/.bash_local
 fi
 
-## backup our current zshrc
+## save our current zshrc
 if [ -f ~/.zshrc ]; then
-  echo "saving .zshrc to .zshrc_old"
-  echo "## copied from old .zshrc" >>~/.zshrc_old
-  cat ~/.zshrc >>~/.zshrc_old
+  echo "saving .zshrc to .zshrc_local"
+  echo "## copied from old .zshrc" >>~/.zshrc_local
+  cat ~/.zshrc >>~/.zshrc_local
   rm ~/.zshrc
 fi
 
 ## link my dotfiles
-for filename in .bash_profile .sh_aliases .bash_fns .vimrc .vim/ .gitconfig .zshrc .tmux.conf; do
+for filename in .bash_profile .sh_aliases .bash_fns .vimrc .vim/ .gitconfig .zshrc .zsh_fns .tmux.conf; do
   if [ ! -e ~/$filename ]; then
     echo "linking dotfile $filename"
     ln -s ~/.dotfiles/$filename ~/$filename

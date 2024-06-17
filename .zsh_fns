@@ -1,8 +1,53 @@
-lines_coded () {
+#!/bin/zsh
+
+
+## coding analysis
+lines_coded() {
     perl -ne'print unless /^\s*$/ || /^\s*(?:#|\/\*|\*)/' $* | wl
 }
-
-lines_commented () {
+lines_commented() {
     perl -ne'print if /^\s*(?:#|\/\*|\*)/' $* | wl
 }
+
+## add a blank space to the Mac OSX Dock
+add_spacer_to_dock () {
+  defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+  killall Dock
+}
+
+## see the module and function of perl code in a directory
+## e.g. $ perl_dir_structure
+perl_dir_structure() {
+    find . -name "*_Test.pm" -prune -o -type f -print0 \
+    | xargs -0 perl -nle'
+        BEGIN{ $last_p = undef} 
+        $last_p = undef if eof;
+        ($p) = /^package (.+);/;
+        $last_p = $p if $p;
+        ($s) = /^sub (\w+)\b/;
+        next unless $s;
+        $all{$last_p}{$s}++;
+        END{ for $p (keys %all) { print "\n$p"; print "\t$_" foreach keys %{$all{$p}} }}'
+}
+
+tailgrep() {
+	tailf $1 | grep --line-buffered "$2"
+}
+
+v() {
+	wl $1
+	l $1
+	head $1
+}
+
+mkc() {
+    mkdir $1 && cd "$_"
+}
+
+# settitle "window terminal title"
+settitle()
+{
+    printf "\e]2;$*\a\e]1;$*\a\e]0;$*\a";
+}
+
 

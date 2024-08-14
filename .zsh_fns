@@ -51,3 +51,6 @@ settitle()
 }
 
 
+notify_mac() {
+    osascript -e 'display notification "'$*'" with title "Emergency" sound name "Glass"'
+}

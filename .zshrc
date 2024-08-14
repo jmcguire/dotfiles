@@ -48,24 +48,19 @@ then
   . ~/.zsh_fns
 fi
 
-# for putting the python venv into a PS1
-function virtualenv_info {
-    #[ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
-    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV` `$VIRTUAL_ENV/bin/python --version | sed 's,Python ,,'`') '
+function zshaddhistory() {
+    emulate -L zsh
+    if ! [[ "$1" =~ "/^jrnl/" ]] ; then
+        print -sr -- "${1%%$'\n'}"
+        fc -p
+    else
+        return 1
+    fi
 }
-
-# quick_weather # this can be slow
-
-
-# cargo completiong
-# should be moved to a local .sh file
-# source $(rustc --print sysroot)/share/zsh/site-functions/_cargo
 
 # source my local/custom definitions
 # (this should always be last)
 if [ -f ~/.zshrc_local ]; then
   . ~/.zshrc_local
 fi
-
-
 

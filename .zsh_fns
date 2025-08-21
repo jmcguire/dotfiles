@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-
 ## coding analysis
 lines_coded() {
     perl -ne'print unless /^\s*$/ || /^\s*(?:#|\/\*|\*)/' $* | wl

@@ -57,6 +57,7 @@ get basic utilities:
   brew install quicklook-json
   brew install jrnl
   brew install bash-completion
+  brew install mdcat
   sudo gem install mdless
   npm install -g tldr
 

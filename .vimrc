@@ -34,6 +34,8 @@ set encoding=utf-8  " The encoding displayed.
 set fileencoding=utf-8  " The encoding written to file.
 set ffs=unix " unix file endings
 
+set termguicolors " 24 bit colors
+
 au BufNewFile,BufRead *.t setfiletype perl " perl test files
 au BufNewFile,BufRead *.esp setfiletype perl " html files, filled with perl
 

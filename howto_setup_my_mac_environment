@@ -31,7 +31,7 @@ setup github ssh keys:
 
   to add keys to a server you go into
 
-    ssh-copy-id dev10x
+    ssh-copy-id LOCAL-SERVER-NAME
 
 install oh-my-zsh
 

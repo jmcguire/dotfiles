@@ -26,10 +26,18 @@ ZSH_NEWLINE=$'\n'
 
 setopt PROMPT_SUBST
 
+# \033 is the escape character
+# [38; is forgraound
+# [48; is background
+# 2, is 24 bit color
+
+# m marks the end of the sequence
+
 PROMPT=""
 PROMPT+='%{$fg_bold[green]%}%n@%m%{$reset_color%}'
 PROMPT+=' %{$fg_bold[blue]%}%~%{$reset_color%}'
 PROMPT+=' $(git_prompt_info)'
 PROMPT+='$(prompt_python_venv)'
-PROMPT+='%B»%b '
+PROMPT+=$'\n''%B»%b '
+
 

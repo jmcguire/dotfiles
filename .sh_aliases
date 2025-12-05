@@ -18,6 +18,7 @@ alias grepp="grep -P " ## perl
 alias rest="cd;clear"
 #alias g="git"
 alias k9="kill -9"
+alias space='echo "\n\n\n\n\n"'
 
 ## redoing basic commands
 

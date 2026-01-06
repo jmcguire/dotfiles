@@ -1,0 +1,31 @@
+
+# ruby
+export PATH="/opt/homebrew/opt/ruby@3.2/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/ruby@3.2/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/ruby@3.2/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby@3.2/lib/pkgconfig"
+
+eval "$(/opt/homebrew/bin/brew shellenv)" 
+
+# Load Angular CLI autocompletion.
+#source <(ng completion script)
+
+alias python="python3"
+
+export PKG_CONFIG_PATH="/opt/homebrew/opt/pixman/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+# node
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# rbenv, another ruby version manager
+eval "$(rbenv init -)"
+
+#export SDKMAN_DIR="/Users/jmcgui01/.sdkman"
+#[[ -s "/Users/jmcgui01/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/jmcgui01/.sdkman/bin/sdkman-init.sh"
+
+# java
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
+export JAVA_HOME="/opt/homebrew/Cellar/openjdk@17/17.0.16/libexec/openjdk.jdk/Contents/Home"

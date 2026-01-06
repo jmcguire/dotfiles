@@ -25,7 +25,7 @@ alias space='echo "\n\n\n\n\n"'
 alias mv="mv -i"
 alias cp="cp -i"
 alias mc="echo nope"
-alias more="less"
+alias more="less --quit-if-one-screen"
 ## I think this is also defined in some system default
 #alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
 

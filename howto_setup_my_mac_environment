@@ -8,17 +8,13 @@ install my prefered terminal:
 
   https://draculatheme.com/iterm
 
-change preferred shell to zsh
-
-  chsh -s /bin/zsh
-
 get command-line tools:
 
   xcode-select --install
 
 setup github ssh keys:
 
-  ssh-keygen -t rsa -b 4096 -C "jm@landedstar.com"
+  ssh-keygen -t rsa ed25519 -C "jm@landedstar.com"
   eval "$(ssh-agent -s)"
   ssh-add .ssh/id_rsa
 
@@ -29,13 +25,9 @@ setup github ssh keys:
     ssh -T git@github.com
     (if that fails: ssh -T -p 443 git@ssh.github.com )
 
-  to add keys to a server you go into
+  to add keys to any server you go into
 
     ssh-copy-id LOCAL-SERVER-NAME
-
-install oh-my-zsh
-
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 setup dotfiles:
 
@@ -44,10 +36,15 @@ setup dotfiles:
   cd dotfiles
   ./setup.sh
 
+fix .zshrc_local:
+
+  those lines are probably already in the regular .zshrc, where I need them, especially if this is a brand new computer.
+  (if it's been used for a bit, then those might have necessary things in them.)
+
 get the package managers:
 
   macports: http://www.macports.org/install.php
-  homebrew: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  homebrew: https://brew.sh
 
 get basic utilities:
 
@@ -58,8 +55,8 @@ get basic utilities:
   brew install jrnl
   brew install bash-completion
   brew install mdcat
-  sudo gem install mdless
-  npm install -g tldr
+  brew install mdless
+  brew install tldr
 
 make the mac better:
 
@@ -82,4 +79,3 @@ make the mac better:
   # copy the message of the day
   cp ~/.dotfiles/motd /etc/motd
 
-  brew install fortune

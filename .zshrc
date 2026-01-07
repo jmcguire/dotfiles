@@ -1,6 +1,5 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=usr/local/go/bin::$PATH
-export ZSH="$HOME/.oh-my-zsh" # Path to your oh-my-zsh installation.
 
 export CASE_SENSITIVE="true" # case-sensitive completion.
 export HYPHEN_INSENSITIVE="false" # _ and - will be interchangeable.

@@ -57,6 +57,8 @@ get basic utilities:
   brew install mdcat
   brew install mdless
   brew install tldr
+  brew install basictex
+  brew install exiftool
 
 make the mac better:
 

@@ -2,10 +2,10 @@
 
 ## coding analysis
 lines_coded() {
-    perl -ne'print unless /^\s*$/ || /^\s*(?:#|\/\*|\*)/' $* | wl
+    perl -ne'print unless /^\s*$/ || /^\s*(?:#|\/\*|\*)/' "$@" | wl
 }
 lines_commented() {
-    perl -ne'print if /^\s*(?:#|\/\*|\*)/' $* | wl
+    perl -ne'print if /^\s*(?:#|\/\*|\*)/' "$@" | wl
 }
 
 ## add a blank space to the Mac OSX Dock
@@ -30,17 +30,17 @@ perl_dir_structure() {
 }
 
 tailgrep() {
-	tailf $1 | grep --line-buffered "$2"
+	tail -f "$1" | grep --line-buffered "$2"
 }
 
 v() {
-	wl $1
-	l $1
-	head $1
+	wl "$1"
+	l "$1"
+	head "$1"
 }
 
 mkc() {
-    mkdir $1 && cd "$_"
+    mkdir -p "$1" && cd "$1"
 }
 
 # settitle "window terminal title"
@@ -51,12 +51,22 @@ settitle()
 
 
 notify_mac() {
-    osascript -e 'display notification "'$*'" with title "Emergency" sound name "Glass"'
+    osascript \
+      -e 'on run argv' \
+      -e 'display notification (item 1 of argv) with title "Emergency" sound name "Glass"' \
+      -e 'end run' \
+      -- "$*"
 }
 
 cat() {
   if [[ "$1" == *.md ]]; then
-    glow "$@"
+    if have glow; then
+      glow "$@"
+    elif have mdcat; then
+      mdcat "$@"
+    else
+      command cat "$@"
+    fi
   else
     command cat "$@"
   fi
@@ -65,10 +75,7 @@ cat() {
 # don't add jrnl entries to history
 function zshaddhistory() {
     emulate -L zsh
-    if ! [[ "$1" =~ "/^jrnl/" ]] ; then
-        print -sr -- "${1%%$'\n'}"
-        fc -p
-    else
+    if [[ "$1" == jrnl || "$1" == jrnl\ * ]]; then
         return 1
     fi
 }
@@ -88,4 +95,3 @@ function show_note_on_cd() {
 autoload -U add-zsh-hook
 add-zsh-hook chpwd show_note_on_cd
 show_note_on_cd # Also run once on shell startup (for initial dir)
-

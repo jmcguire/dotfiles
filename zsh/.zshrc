@@ -1,6 +1,20 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
+_dotfiles_source="${(%):-%N}"
+while [[ -L "$_dotfiles_source" ]]; do
+  _dotfiles_dir="${_dotfiles_source:h}"
+  _dotfiles_source="$(readlink "$_dotfiles_source")"
+  [[ "$_dotfiles_source" = /* ]] || _dotfiles_source="$_dotfiles_dir/$_dotfiles_source"
+done
+export DOTFILES_DIR="${DOTFILES_DIR:-${_dotfiles_source:h:h}}"
+unset _dotfiles_source _dotfiles_dir
+
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=usr/local/go/bin::$PATH
+export PATH=/usr/local/go/bin:$HOME/go/bin:$PATH
 
 export CASE_SENSITIVE="true" # case-sensitive completion.
 export HYPHEN_INSENSITIVE="false" # _ and - will be interchangeable.
@@ -15,7 +29,9 @@ zstyle ':omz:update' mode reminder  # remind me when it's time to update
 export ZSH="$HOME/.oh-my-zsh"
 plugins=(git)
 ZSH_THEME="justin"
-source $ZSH/oh-my-zsh.sh # has to be last in this paragraph
+if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
+  source "$ZSH/oh-my-zsh.sh" # has to be last in this paragraph
+fi
 
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -35,15 +51,15 @@ quietly unalias have
 function have() { type "$@" > /dev/null 2>&1; } # for use in a bash IF statement
 
 # Get the aliases, which luckily are the same format in bash as zsh
-if [[ -f ~/.sh_aliases ]]
+if [[ -f "$DOTFILES_DIR/shell/aliases.sh" ]]
 then
-  . ~/.sh_aliases
+  . "$DOTFILES_DIR/shell/aliases.sh"
 fi
 
 # and the functions
-if [[ -f ~/.zsh_fns ]]
+if [[ -f "$DOTFILES_DIR/shell/functions.zsh" ]]
 then
-  . ~/.zsh_fns
+  . "$DOTFILES_DIR/shell/functions.zsh"
 fi
 
 # source my local/custom definitions
@@ -51,5 +67,4 @@ fi
 if [ -f ~/.zshrc_local ]; then
   . ~/.zshrc_local
 fi
-
 

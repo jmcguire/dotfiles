@@ -1,3 +1,4 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=usr/local/go/bin::$PATH
 
@@ -44,16 +45,6 @@ if [[ -f ~/.zsh_fns ]]
 then
   . ~/.zsh_fns
 fi
-
-function zshaddhistory() {
-    emulate -L zsh
-    if ! [[ "$1" =~ "/^jrnl/" ]] ; then
-        print -sr -- "${1%%$'\n'}"
-        fc -p
-    else
-        return 1
-    fi
-}
 
 # source my local/custom definitions
 # (this should always be last)

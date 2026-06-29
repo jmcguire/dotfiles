@@ -106,5 +106,5 @@ alias random_user="users | sed -r -e 's/ /\n/g' | sort -u | shuf -n 1"
 alias weather="curl wttr.in/NATICK"
 alias quick_weather="curl 'wttr.in/NATICK?format=%l:%c%t:%f:%m\n'"
 alias readm=mdless
-
+alias preview="qlmanage -p"
 

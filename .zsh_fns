@@ -53,3 +53,39 @@ settitle()
 notify_mac() {
     osascript -e 'display notification "'$*'" with title "Emergency" sound name "Glass"'
 }
+
+cat() {
+  if [[ "$1" == *.md ]]; then
+    glow "$@"
+  else
+    command cat "$@"
+  fi
+}
+
+# don't add jrnl entries to history
+function zshaddhistory() {
+    emulate -L zsh
+    if ! [[ "$1" =~ "/^jrnl/" ]] ; then
+        print -sr -- "${1%%$'\n'}"
+        fc -p
+    else
+        return 1
+    fi
+}
+
+# Track last directory to avoid repeat triggers
+typeset -g LAST_NOTE_DIR=""
+function show_note_on_cd() {
+  local note_file=".onenter"
+
+  if [[ -f "$note_file" && "$PWD" != "$LAST_NOTE_DIR" ]]; then
+    echo
+    cat "$note_file"
+    echo
+    LAST_NOTE_DIR="$PWD"
+  fi
+}
+autoload -U add-zsh-hook
+add-zsh-hook chpwd show_note_on_cd
+show_note_on_cd # Also run once on shell startup (for initial dir)
+

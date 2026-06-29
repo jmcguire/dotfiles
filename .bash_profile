@@ -70,8 +70,9 @@ if [ -f ~/.bash_local ]; then
 fi
 
 
+# bumch of stuff that should be in .bashrc_local, but i don't care right now
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+. "$HOME/.cargo/env"

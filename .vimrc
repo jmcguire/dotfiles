@@ -1,15 +1,15 @@
 set ignorecase
 set smartcase
 set novisualbell
-set noautoindent
+set autoindent " set to noautoindent if pasting still fails
 set nosmartindent
-set paste " for better pasting, and no auto-commenting
+"set paste " for better pasting, and no auto-commenting
 "set mouse=a " use mouse scrolling
 
 set wrap
-set tabstop=4 " what hard tabs are shown as
-set shiftwidth=4 " how many columns indent-operations will indent by
-set softtabstop=4 " only matters if noexpandtab, just make it same as tabstop
+set tabstop=2 " what hard tabs are shown as
+set shiftwidth=2 " how many columns indent-operations will indent by
+set softtabstop=2 " only matters if noexpandtab, just make it same as tabstop
 set expandtab " has to be after set paste
 
 "au BUfNewFile,BufRead *py

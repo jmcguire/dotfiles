@@ -115,7 +115,6 @@ Desktop.ini
 ######################
 # Directories
 ######################
-/bin/
 /deploy/
 
 ######################
@@ -145,3 +144,8 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+
+
+# Added by cargo
+
+/target

@@ -1,5 +1,17 @@
 #!/bin/bash
- 
+
+_dotfiles_source="${BASH_SOURCE[0]}"
+while [ -L "$_dotfiles_source" ]; do
+  _dotfiles_dir="$(cd "$(dirname "$_dotfiles_source")" >/dev/null 2>&1 && pwd -P)"
+  _dotfiles_source="$(readlink "$_dotfiles_source")"
+  case "$_dotfiles_source" in
+    /*) ;;
+    *) _dotfiles_source="$_dotfiles_dir/$_dotfiles_source" ;;
+  esac
+done
+export DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "$_dotfiles_source")/.." >/dev/null 2>&1 && pwd -P)}"
+unset _dotfiles_source _dotfiles_dir
+
 # two basic commands, used everywhere in my setup
 
 unalias quietly 2> /dev/null
@@ -9,12 +21,12 @@ have() { type "$@" > /dev/null 2>&1; } # for use in a bash IF statement
 
 # Get the aliases and functions
 
-if [ -f ~/.sh_aliases ]; then
-  . ~/.sh_aliases
+if [ -f "$DOTFILES_DIR/shell/aliases.sh" ]; then
+  . "$DOTFILES_DIR/shell/aliases.sh"
 fi
 
-if [ -f ~/.bash_fns ]; then
-  . ~/.bash_fns
+if [ -f "$DOTFILES_DIR/shell/functions.bash" ]; then
+  . "$DOTFILES_DIR/shell/functions.bash"
 fi
 
 ##
@@ -23,8 +35,6 @@ fi
 
 export HISTCONTROL=erasedups
 export HISTIGNORE='jrnl *'
-# Automatically highlight matches with grep
-export GREP_OPTIONS=--color=always
 export LESS=-r
 export PERL_UNICODE=AS
 export LC_COLLATE="C"
@@ -51,10 +61,6 @@ shopt -s lithist
 #shopt -s globstar
 shopt -s expand_aliases
 
-if [ -f ~/.bashrc ]; then
-  . ~/.bashrc
-fi
-
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
@@ -75,4 +81,6 @@ fi
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-. "$HOME/.cargo/env"
+[[ -s "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+
+true

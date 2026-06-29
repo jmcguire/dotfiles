@@ -22,7 +22,7 @@ for my $year (2001 .. 2017) {
 		my $filepath = "/home/jmcguire/p4/prod/perllib/Athena/$file";
 		next unless (-e $filepath);
 
-        my $linecount = `~/bin/get-perl-function $subroutine $filepath | wc -l`;
+        my $linecount = `~/bin/perl_get_sub $subroutine $filepath | wc -l`;
 		chomp $linecount;
 
         say "$date,$linecount";
@@ -31,4 +31,3 @@ for my $year (2001 .. 2017) {
 
 # reset the file to normal
 `p4 sync //jmcguire/prod/perllib/Athena/$file 2>&1 >/dev/null`;
-

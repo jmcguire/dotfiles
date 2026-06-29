@@ -9,9 +9,9 @@ function prompt_emergency_note() {
 
 function prompt_python_venv() {
     # for getting the python venv into a PS1
-    if [ $VIRTUAL_ENV ]; then
-        venv_name=`basename $VIRTUAL_ENV`
-        python_version=`$VIRTUAL_ENV/bin/python --version | sed 's,Python ,,'`
+    if [ -n "$VIRTUAL_ENV" ]; then
+        venv_name=`basename "$VIRTUAL_ENV"`
+        python_version=`"$VIRTUAL_ENV/bin/python" --version | sed 's,Python ,,'`
 
         echo "%{$fg[green]%}($venv_name $python_version)%{$reset_color%} "
     fi
@@ -39,5 +39,4 @@ PROMPT+=' %{$fg_bold[blue]%}%~%{$reset_color%}'
 PROMPT+=' $(git_prompt_info)'
 PROMPT+='$(prompt_python_venv)'
 PROMPT+=$'\n''%B»%b '
-
 
